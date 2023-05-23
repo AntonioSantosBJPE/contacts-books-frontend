@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { Input } from "../components/Input";
 import { schema, TregisterData } from "./schema";
+import { handlePhone } from "./utils";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -69,6 +70,7 @@ export default function RegisterPage() {
           linkForm={register("phone")}
           error={errors.phone?.message}
           placeholder={"(xx)xxxxx-xxxx"}
+          onChange={(event) => handlePhone(event)}
         />
         <br></br>
         <Input
