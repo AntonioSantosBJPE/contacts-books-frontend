@@ -4,8 +4,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { Input } from "../components/Input";
 import { schema, TregisterData } from "./schema";
-import { handlePhone } from "./utils";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -43,37 +43,52 @@ export default function RegisterPage() {
       </div>
       <br></br>
       <br></br>
-      <form onSubmit={handleSubmit(accountRegister)}>
-        <label htmlFor="input-name">Nome </label>
-        <input type="text" id="input-name" {...register("name")} />
-        <p>{errors.name?.message}</p>
-        <br></br>
-        <label htmlFor="input-email">Email </label>
-        <input type="text" id="input-email" {...register("email")} />
-        <p>{errors.email?.message}</p>
-        <br></br>
-        <label htmlFor="input-phone">Telefone </label>
-        <input
+      <form onSubmit={handleSubmit(accountRegister)} noValidate>
+        <Input
+          id="input-name"
+          labelName="Nome"
           type="text"
+          linkForm={register("name")}
+          error={errors.name?.message}
+          placeholder={"Digite seu nome"}
+        />
+        <br></br>
+        <Input
+          id="input-email"
+          labelName="Email"
+          type="email"
+          linkForm={register("email")}
+          error={errors.email?.message}
+          placeholder={"Digite seu email"}
+        />
+        <br></br>
+        <Input
           id="input-phone"
-          {...register("phone")}
-          placeholder="(xx)xxxxx-xxxx"
-          onChange={(event) => handlePhone(event)}
-          maxLength={14}
+          labelName="Telefone"
+          type="text"
+          linkForm={register("phone")}
+          error={errors.phone?.message}
+          placeholder={"(xx)xxxxx-xxxx"}
         />
-        <p>{errors.phone?.message}</p>
         <br></br>
-        <label htmlFor="input-password">Senha </label>
-        <input type="password" id="input-password" {...register("password")} />
-        <p>{errors.password?.message}</p>
-        <br></br>
-        <label htmlFor="input-confirm-password">Confirmação de Senha </label>
-        <input
+        <Input
+          id="input-password"
+          labelName="Senha"
           type="password"
-          id="input-confirm-password"
-          {...register("confirmPassword")}
+          linkForm={register("password")}
+          error={errors.password?.message}
+          placeholder={"Digite sua senha"}
         />
-        <p>{errors.confirmPassword?.message}</p>
+        <br></br>
+        <Input
+          id="input-confirm-password"
+          labelName="Confirmação de senha"
+          type="password"
+          linkForm={register("confirmPassword")}
+          error={errors.confirmPassword?.message}
+          placeholder={"Digite sua senha novamente"}
+        />
+
         <br></br>
         <br></br>
         <button type="submit">Registrar</button>
