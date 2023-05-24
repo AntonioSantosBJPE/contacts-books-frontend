@@ -1,21 +1,12 @@
 "use client";
 import { api } from "@/services/api";
 import { useRouter } from "next/navigation";
-import { createContext, ReactNode, useState } from "react";
-import { Iclient } from "./types";
-
-interface IauthContext {
-  udpateClient: (data: Iclient) => void;
-  client: Iclient | undefined;
-  logoutClient: () => void;
-}
-interface IuserProviderProps {
-  children: ReactNode;
-}
+import { createContext, useState } from "react";
+import { IauthContext, IauthProviderProps, Iclient } from "./types";
 
 export const AuthContext = createContext({} as IauthContext);
 
-export const AuthProvider = ({ children }: IuserProviderProps) => {
+export const AuthProvider = ({ children }: IauthProviderProps) => {
   const [client, setClient] = useState<Iclient>();
 
   const router = useRouter();
