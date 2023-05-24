@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { useContext, useEffect } from "react";
 
 export default function DashboardPage() {
-  const { client, logoutClient, udpateClient } = useContext(AuthContext);
+  const { client, udpateClient } = useContext(AuthContext);
   const { contacts, requestContacts } = useContext(ContactsContext);
   const router = useRouter();
 
@@ -45,8 +45,6 @@ export default function DashboardPage() {
           <h1> Dashboard</h1>
           <h4>{client.email}</h4>
           <h4>{client.name}</h4>
-          <button onClick={logoutClient}>Sair</button>
-
           <ul>
             {contacts.map((contact) => {
               return (
