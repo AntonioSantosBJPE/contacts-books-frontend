@@ -1,3 +1,9 @@
+.containerMain {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+}
 .boxHeader {
   display: flex;
   flex-direction: column;
@@ -30,8 +36,7 @@
     align-items: center;
     justify-content: center;
 
-    width: 40%;
-    max-width: 15rem;
+    width: 15rem;
     height: 5rem;
     background-color: #41aeb5;
     border-radius: 3.4rem;
@@ -45,7 +50,7 @@
     color: #524343;
   }
 
-  @media (min-width: 768px) {
+  @media (min-width: 600px) {
     flex-direction: row;
     height: 10rem;
     img {
@@ -61,5 +66,40 @@
       width: 50%;
       height: 100%;
     }
+  }
+}
+
+.listContacts {
+  display: flex;
+
+  gap: 2rem;
+
+  width: 100%;
+  overflow-x: auto;
+
+  border: 0.1rem solid blueviolet;
+  padding: 1rem;
+
+  li {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    border: 0.1rem solid black;
+    border-radius: 1rem;
+
+    padding: 1rem;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.24);
+
+    width: 100%;
+    min-width: 29rem;
+    max-width: 30rem;
+  }
+
+  @media (min-width: 650px) {
+    overflow-x: hidden;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
   }
 }

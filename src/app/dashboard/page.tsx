@@ -1,10 +1,12 @@
 "use client";
+import { ListContacts } from "@/components/ListContacts";
 import { AuthContext } from "@/contexts/AuthContext";
 import { ContactsContext } from "@/contexts/ContactsContext";
 import { Iclient } from "@/contexts/types";
 import { api } from "@/services/api";
 import { useRouter } from "next/navigation";
 import { useContext, useEffect } from "react";
+import styles from "./styles.module.scss";
 
 export default function DashboardPage() {
   const { client, udpateClient } = useContext(AuthContext);
@@ -39,24 +41,17 @@ export default function DashboardPage() {
   }, []);
 
   return (
-    <main>
+    <main className={styles.containerMain}>
       {client ? (
         <>
           <h1> Dashboard</h1>
           <h4>{client.email}</h4>
           <h4>{client.name}</h4>
-          <ul>
-            {contacts.map((contact) => {
-              return (
-                <li key={contact.id}>
-                  <h4>Nome: {contact.name}</h4>
-                  <h4>Email: {contact.email}</h4>
-                  <h4>Telefone: {contact.phone}</h4>
-                  <h4>Registrado em: {contact.createdAt}</h4>
-                </li>
-              );
-            })}
-          </ul>
+          {contacts.length > 0 ? (
+            <ListContacts contacts={contacts} />
+          ) : (
+            <h2>Não existem contatos cadastrados!</h2>
+          )}
         </>
       ) : (
         <h1>Carregando...</h1>
