@@ -1,9 +1,12 @@
 "use client";
 import { Form } from "@/components/Form";
 import { Header } from "@/components/Header";
+import { AuthContext } from "@/contexts/AuthContext";
+import { Iclient, IloginClient } from "@/contexts/types";
 import { api } from "@/services/api";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
+import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { Input } from "../../components/Input";
 import { schema, TregisterData } from "./schema";
@@ -11,6 +14,7 @@ import styles from "./styles.module.scss";
 import { handlePhone } from "./utils";
 
 export default function RegisterPage() {
+  const { udpateClient } = useContext(AuthContext);
   const router = useRouter();
   const {
     register,
@@ -23,9 +27,9 @@ export default function RegisterPage() {
 
   const accountRegister = async (data: TregisterData) => {
     try {
-      const response = await api.post("/clients", data);
-      const responseLogin = await api.post("/login", data);
-
+      const response = await api.post<Iclient>("/clients", data);
+      const responseLogin = await api.post<IloginClient>("/login", data);
+      udpateClient(response.data);
       const { accessToken } = responseLogin.data;
       api.defaults.headers.common.authorization = `Bearer ${accessToken}`;
       localStorage.setItem("@contacts-book:token", accessToken);
