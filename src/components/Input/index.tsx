@@ -11,6 +11,7 @@ interface iInput {
   linkForm?: UseFormRegisterReturn<string>;
   error?: any;
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
+  maxLength?: number;
 }
 
 export const Input = ({
@@ -22,6 +23,7 @@ export const Input = ({
   error,
   disabled,
   onChange,
+  maxLength,
 }: iInput) => {
   return (
     <div className={styles.containerInput}>
@@ -33,6 +35,7 @@ export const Input = ({
         {...linkForm}
         disabled={disabled}
         onChange={onChange}
+        maxLength={maxLength}
       />
       <p>{error}</p>
     </div>

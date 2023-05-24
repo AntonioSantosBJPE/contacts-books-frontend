@@ -1,4 +1,5 @@
 "use client";
+import { Form } from "@/components/Form";
 import { Header } from "@/components/Header";
 import { api } from "@/services/api";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -6,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { Input } from "../../components/Input";
 import { schema, TregisterData } from "./schema";
+import styles from "./styles.module.scss";
 import { handlePhone } from "./utils";
 
 export default function RegisterPage() {
@@ -42,12 +44,10 @@ export default function RegisterPage() {
         rightLinkName="Home"
         rightLinkHref="/"
       />
-      <main>
+      <main className={styles.containerMain}>
         <h1> Register</h1>
 
-        <br></br>
-        <br></br>
-        <form onSubmit={handleSubmit(accountRegister)} noValidate>
+        <Form onSubmit={handleSubmit(accountRegister)}>
           <Input
             id="input-name"
             labelName="Nome"
@@ -56,7 +56,7 @@ export default function RegisterPage() {
             error={errors.name?.message}
             placeholder={"Digite seu nome"}
           />
-          <br></br>
+
           <Input
             id="input-email"
             labelName="Email"
@@ -65,7 +65,7 @@ export default function RegisterPage() {
             error={errors.email?.message}
             placeholder={"Digite seu email"}
           />
-          <br></br>
+
           <Input
             id="input-phone"
             labelName="Telefone"
@@ -74,8 +74,9 @@ export default function RegisterPage() {
             error={errors.phone?.message}
             placeholder={"(xx)xxxxx-xxxx"}
             onChange={(event) => handlePhone(event)}
+            maxLength={14}
           />
-          <br></br>
+
           <Input
             id="input-password"
             labelName="Senha"
@@ -84,7 +85,7 @@ export default function RegisterPage() {
             error={errors.password?.message}
             placeholder={"Digite sua senha"}
           />
-          <br></br>
+
           <Input
             id="input-confirm-password"
             labelName="Confirmação de senha"
@@ -94,10 +95,8 @@ export default function RegisterPage() {
             placeholder={"Digite sua senha novamente"}
           />
 
-          <br></br>
-          <br></br>
           <button type="submit">Registrar</button>
-        </form>
+        </Form>
       </main>
     </>
   );
