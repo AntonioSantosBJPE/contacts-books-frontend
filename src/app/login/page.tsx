@@ -1,12 +1,16 @@
-import Link from "next/link";
+import { Header } from "@/components/Header";
 export default function LoginPage() {
   return (
-    <main>
-      <h1> Login</h1>
-      <div>
-        <Link href="/register">Register</Link>
-        <Link href="/">Home</Link>
-      </div>
-    </main>
+    <>
+      <Header
+        leftLinkName="Register"
+        leftLinkHref="/register"
+        rightLinkName="Home"
+        rightLinkHref="/"
+      />
+      <main>
+        <h1> Login</h1>
+      </main>
+    </>
   );
 }
