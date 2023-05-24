@@ -1,3 +1,4 @@
+import { AuthProvider } from "@/contexts/AuthContext";
 import { Inter } from "next/font/google";
 import "../sass/main.scss";
 import styles from "./styles.module.scss";
@@ -17,7 +18,9 @@ export default function RootLayout({
   return (
     <html lang="pt-br">
       <body className={inter.className}>
-        <div className={styles.container}>{children}</div>
+        <div className={styles.container}>
+          <AuthProvider>{children}</AuthProvider>
+        </div>
       </body>
     </html>
   );
