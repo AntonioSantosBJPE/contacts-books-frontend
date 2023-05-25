@@ -1,10 +1,13 @@
+import { ContactsContext } from "@/contexts/ContactsContext";
 import { Icontacts } from "@/contexts/types";
+import { useContext } from "react";
 import styles from "./styles.module.scss";
 interface IcardContactProps {
   contact: Icontacts;
 }
 
 export const CardContact = ({ contact }: IcardContactProps) => {
+  const { openModal } = useContext(ContactsContext);
   return (
     <li className={styles.cardContact}>
       <p>Nome: {contact.name}</p>
@@ -12,7 +15,9 @@ export const CardContact = ({ contact }: IcardContactProps) => {
       <p>Telefone: {contact.phone}</p>
       <p>Registrado em: {contact.createdAt}</p>
       <div>
-        <button>Editar</button>
+        <button onClick={() => openModal("editContact", contact)}>
+          Editar
+        </button>
         <button>Excluir</button>
       </div>
     </li>

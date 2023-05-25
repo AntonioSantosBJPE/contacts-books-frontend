@@ -6,22 +6,14 @@ import { ContactsContext } from "@/contexts/ContactsContext";
 import { Iclient } from "@/contexts/types";
 import { api } from "@/services/api";
 import { useRouter } from "next/navigation";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import styles from "./styles.module.scss";
 
 export default function DashboardPage() {
-  const [modalIsOpen, setIsOpen] = useState(false);
-
   const { client, udpateClient } = useContext(AuthContext);
-  const { contacts, requestContacts } = useContext(ContactsContext);
-  const router = useRouter();
+  const { contacts, requestContacts, openModal } = useContext(ContactsContext);
 
-  const openModal = () => {
-    setIsOpen(true);
-  };
-  const closeModal = () => {
-    setIsOpen(false);
-  };
+  const router = useRouter();
 
   useEffect(() => {
     const token: string | null = localStorage.getItem("@contacts-book:token");
@@ -52,14 +44,16 @@ export default function DashboardPage() {
 
   return (
     <>
-      <ModalDashboard closeModal={closeModal} modalIsOpen={modalIsOpen} />
+      <ModalDashboard />
       <main className={styles.containerMain}>
         {client ? (
           <>
             <h1> Dashboard</h1>
             <h4>{client.email}</h4>
             <h4>{client.name}</h4>
-            <button onClick={openModal}>Cadastrar contato</button>
+            <button onClick={() => openModal("registerContact")}>
+              Cadastrar contato
+            </button>
             {contacts.length > 0 ? (
               <ListContacts contacts={contacts} />
             ) : (

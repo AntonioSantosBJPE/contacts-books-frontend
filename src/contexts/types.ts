@@ -17,6 +17,12 @@ export interface IcontactsContext {
   contacts: Icontacts[];
   setContacts: Dispatch<SetStateAction<Icontacts[]>>;
   requestContacts: (id: string) => Promise<void>;
+  contactIsEdit: Icontacts;
+  setContactIsEdit: Dispatch<SetStateAction<Icontacts>>;
+  modalIsOpen: boolean;
+  openModal: (type: TmodalTypes, contact?: Icontacts | undefined) => void;
+  closeModal: () => void;
+  modalType: TmodalTypes;
 }
 export interface IcontactsProviderProps {
   children: ReactNode;
@@ -32,3 +38,9 @@ export interface Iclient {
 }
 
 export interface Icontacts extends Iclient {}
+
+export type TmodalTypes =
+  | "registerContact"
+  | "editContact"
+  | "deleteContact"
+  | "editClient";

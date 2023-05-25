@@ -2,12 +2,31 @@
 import { api } from "@/services/api";
 import { useRouter } from "next/navigation";
 import { createContext, useState } from "react";
-import { Icontacts, IcontactsContext, IcontactsProviderProps } from "./types";
+import {
+  Icontacts,
+  IcontactsContext,
+  IcontactsProviderProps,
+  TmodalTypes,
+} from "./types";
 
 export const ContactsContext = createContext({} as IcontactsContext);
 
 export const ContactsProvider = ({ children }: IcontactsProviderProps) => {
   const [contacts, setContacts] = useState<Icontacts[]>([]);
+  const [contactIsEdit, setContactIsEdit] = useState<Icontacts>(
+    {} as Icontacts
+  );
+  const [modalIsOpen, setIsOpen] = useState(false);
+  const [modalType, setModalType] = useState<TmodalTypes>("registerContact");
+
+  const openModal = (type: TmodalTypes, contact?: Icontacts) => {
+    setModalType(type);
+    if (contact) setContactIsEdit(contact);
+    setIsOpen(true);
+  };
+  const closeModal = () => {
+    setIsOpen(false);
+  };
 
   const router = useRouter();
 
@@ -24,7 +43,17 @@ export const ContactsProvider = ({ children }: IcontactsProviderProps) => {
 
   return (
     <ContactsContext.Provider
-      value={{ contacts, setContacts, requestContacts }}
+      value={{
+        contacts,
+        setContacts,
+        requestContacts,
+        contactIsEdit,
+        setContactIsEdit,
+        modalIsOpen,
+        openModal,
+        closeModal,
+        modalType,
+      }}
     >
       {children}
     </ContactsContext.Provider>
