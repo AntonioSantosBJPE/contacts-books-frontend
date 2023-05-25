@@ -2,6 +2,7 @@ import { ContactsContext } from "@/contexts/ContactsContext";
 import { useContext } from "react";
 import Modal from "react-modal";
 import { ModalCreateContact } from "./ModalCreateContact";
+import { ModalDeleteContact } from "./ModalDeleteContact";
 import { ModalEditContact } from "./ModalEditContact";
 const customStyles = {
   content: {
@@ -28,6 +29,7 @@ export const ModalDashboard = ({}: ImodalDashboard) => {
     >
       {modalType == "registerContact" && <ModalCreateContact />}
       {modalType == "editContact" && <ModalEditContact />}
+      {modalType == "deleteContact" && <ModalDeleteContact />}
     </Modal>
   );
 };

@@ -18,7 +18,9 @@ export const CardContact = ({ contact }: IcardContactProps) => {
         <button onClick={() => openModal("editContact", contact)}>
           Editar
         </button>
-        <button>Excluir</button>
+        <button onClick={() => openModal("deleteContact", contact)}>
+          Excluir
+        </button>
       </div>
     </li>
   );
