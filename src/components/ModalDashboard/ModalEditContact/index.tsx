@@ -1,7 +1,7 @@
 import { handlePhone } from "@/app/register/utils";
 import { Form } from "@/components/Form";
 import { Input } from "@/components/Input";
-import { ContactsContext } from "@/contexts/ContactsContext";
+import { DashboardContext } from "@/contexts/ContactsContext";
 import { Icontacts } from "@/contexts/types";
 import { api } from "@/services/api";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -13,7 +13,7 @@ interface ImodalEditContact {}
 
 export const ModalEditContact = ({}: ImodalEditContact) => {
   const { contacts, setContacts, closeModal, contactIsEdit } =
-    useContext(ContactsContext);
+    useContext(DashboardContext);
   const {
     register,
     handleSubmit,

@@ -1,4 +1,4 @@
-import { ContactsContext } from "@/contexts/ContactsContext";
+import { DashboardContext } from "@/contexts/ContactsContext";
 import { Icontacts } from "@/contexts/types";
 import { useContext } from "react";
 import styles from "./styles.module.scss";
@@ -7,7 +7,7 @@ interface IcardContactProps {
 }
 
 export const CardContact = ({ contact }: IcardContactProps) => {
-  const { openModal } = useContext(ContactsContext);
+  const { openModal } = useContext(DashboardContext);
   return (
     <li className={styles.cardContact}>
       <p>Nome: {contact.name}</p>

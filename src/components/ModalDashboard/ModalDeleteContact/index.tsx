@@ -1,5 +1,5 @@
 import { Form } from "@/components/Form";
-import { ContactsContext } from "@/contexts/ContactsContext";
+import { DashboardContext } from "@/contexts/ContactsContext";
 import { api } from "@/services/api";
 import { FormEvent, useContext } from "react";
 
@@ -7,7 +7,7 @@ interface ImodalDeleteContact {}
 
 export const ModalDeleteContact = ({}: ImodalDeleteContact) => {
   const { contacts, setContacts, closeModal, contactIsEdit } =
-    useContext(ContactsContext);
+    useContext(DashboardContext);
 
   const deleteContactSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();

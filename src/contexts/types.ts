@@ -13,7 +13,7 @@ export interface IloginClient {
   accessToken: string;
 }
 
-export interface IcontactsContext {
+export interface IdashboardContext {
   contacts: Icontacts[];
   setContacts: Dispatch<SetStateAction<Icontacts[]>>;
   requestContacts: (id: string) => Promise<void>;
@@ -24,7 +24,7 @@ export interface IcontactsContext {
   closeModal: () => void;
   modalType: TmodalTypes;
 }
-export interface IcontactsProviderProps {
+export interface IdashboardProviderProps {
   children: ReactNode;
 }
 

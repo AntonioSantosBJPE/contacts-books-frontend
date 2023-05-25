@@ -1,8 +1,9 @@
-import { ContactsContext } from "@/contexts/ContactsContext";
+import { DashboardContext } from "@/contexts/ContactsContext";
 import { useContext } from "react";
 import Modal from "react-modal";
 import { ModalCreateContact } from "./ModalCreateContact";
 import { ModalDeleteContact } from "./ModalDeleteContact";
+import { ModalEditClient } from "./ModalEditClient";
 import { ModalEditContact } from "./ModalEditContact";
 const customStyles = {
   content: {
@@ -18,7 +19,7 @@ const customStyles = {
 interface ImodalDashboard {}
 
 export const ModalDashboard = ({}: ImodalDashboard) => {
-  const { closeModal, modalIsOpen, modalType } = useContext(ContactsContext);
+  const { closeModal, modalIsOpen, modalType } = useContext(DashboardContext);
   return (
     <Modal
       isOpen={modalIsOpen}
@@ -30,6 +31,7 @@ export const ModalDashboard = ({}: ImodalDashboard) => {
       {modalType == "registerContact" && <ModalCreateContact />}
       {modalType == "editContact" && <ModalEditContact />}
       {modalType == "deleteContact" && <ModalDeleteContact />}
+      {modalType == "editClient" && <ModalEditClient />}
     </Modal>
   );
 };

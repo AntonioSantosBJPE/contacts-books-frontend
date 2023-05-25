@@ -4,14 +4,14 @@ import { useRouter } from "next/navigation";
 import { createContext, useState } from "react";
 import {
   Icontacts,
-  IcontactsContext,
-  IcontactsProviderProps,
+  IdashboardContext,
+  IdashboardProviderProps,
   TmodalTypes,
 } from "./types";
 
-export const ContactsContext = createContext({} as IcontactsContext);
+export const DashboardContext = createContext({} as IdashboardContext);
 
-export const ContactsProvider = ({ children }: IcontactsProviderProps) => {
+export const ContactsProvider = ({ children }: IdashboardProviderProps) => {
   const [contacts, setContacts] = useState<Icontacts[]>([]);
   const [contactIsEdit, setContactIsEdit] = useState<Icontacts>(
     {} as Icontacts
@@ -42,7 +42,7 @@ export const ContactsProvider = ({ children }: IcontactsProviderProps) => {
   };
 
   return (
-    <ContactsContext.Provider
+    <DashboardContext.Provider
       value={{
         contacts,
         setContacts,
@@ -56,6 +56,6 @@ export const ContactsProvider = ({ children }: IcontactsProviderProps) => {
       }}
     >
       {children}
-    </ContactsContext.Provider>
+    </DashboardContext.Provider>
   );
 };

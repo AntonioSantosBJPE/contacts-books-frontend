@@ -2,7 +2,7 @@
 import { ListContacts } from "@/components/ListContacts";
 import { ModalDashboard } from "@/components/ModalDashboard";
 import { AuthContext } from "@/contexts/AuthContext";
-import { ContactsContext } from "@/contexts/ContactsContext";
+import { DashboardContext } from "@/contexts/ContactsContext";
 import { Iclient } from "@/contexts/types";
 import { api } from "@/services/api";
 import { useRouter } from "next/navigation";
@@ -11,7 +11,7 @@ import styles from "./styles.module.scss";
 
 export default function DashboardPage() {
   const { client, udpateClient } = useContext(AuthContext);
-  const { contacts, requestContacts, openModal } = useContext(ContactsContext);
+  const { contacts, requestContacts, openModal } = useContext(DashboardContext);
 
   const router = useRouter();
 
@@ -51,6 +51,10 @@ export default function DashboardPage() {
             <h1> Dashboard</h1>
             <h4>{client.email}</h4>
             <h4>{client.name}</h4>
+            <button onClick={() => openModal("editClient")}>
+              Editar Perfil
+            </button>
+            <br></br>
             <button onClick={() => openModal("registerContact")}>
               Cadastrar contato
             </button>
