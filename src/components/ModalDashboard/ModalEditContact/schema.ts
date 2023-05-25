@@ -1,5 +1,5 @@
 import { z } from "zod";
-export const schema = z.object({
+export const schemaEditContact = z.object({
   name: z.string().min(3).max(150).optional(),
   email: z.string().email().max(45).optional(),
   phone: z
@@ -10,4 +10,4 @@ export const schema = z.object({
     )
     .optional(),
 });
-export type TeditContact = z.infer<typeof schema>;
+export type TeditContact = z.infer<typeof schemaEditContact>;

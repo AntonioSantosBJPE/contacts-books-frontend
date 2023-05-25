@@ -7,26 +7,37 @@ import { api } from "@/services/api";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
-import { schema, TeditContact } from "./schema";
+import { schemaEditContact, TeditContact } from "./schema";
 
 interface ImodalEditContact {}
 
 export const ModalEditContact = ({}: ImodalEditContact) => {
-  const { contacts, setContacts, closeModal } = useContext(ContactsContext);
+  const { contacts, setContacts, closeModal, contactIsEdit } =
+    useContext(ContactsContext);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<TeditContact>({
-    mode: "onBlur",
-    resolver: zodResolver(schema),
+    resolver: zodResolver(schemaEditContact),
+    defaultValues: {
+      name: contactIsEdit.name,
+      email: contactIsEdit.email,
+      phone: contactIsEdit.phone,
+    },
   });
 
   const editContactSubmit = async (data: TeditContact) => {
     try {
-      const response = await api.post<Icontacts>("/contacts", data);
+      const response = await api.patch<Icontacts>(
+        `/contacts/${contactIsEdit.id}`,
+        data
+      );
 
-      setContacts((oldContacts) => [...oldContacts, response.data]);
+      const newContacts = contacts.map((contact) =>
+        contact.id === response.data.id ? response.data : contact
+      );
+      setContacts(newContacts);
       closeModal();
     } catch (error) {
       console.error(error);
@@ -40,7 +51,7 @@ export const ModalEditContact = ({}: ImodalEditContact) => {
           id="input-name"
           labelName="Nome"
           type="text"
-          linkForm={register("name")}
+          linkForm={register("name", { required: false })}
           error={errors.name?.message}
           placeholder={"Digite seu nome"}
         />
@@ -49,7 +60,7 @@ export const ModalEditContact = ({}: ImodalEditContact) => {
           id="input-email"
           labelName="Email"
           type="email"
-          linkForm={register("email")}
+          linkForm={register("email", { required: false })}
           error={errors.email?.message}
           placeholder={"Digite seu email"}
         />
@@ -58,7 +69,7 @@ export const ModalEditContact = ({}: ImodalEditContact) => {
           id="input-phone"
           labelName="Telefone"
           type="text"
-          linkForm={register("phone")}
+          linkForm={register("phone", { required: false })}
           error={errors.phone?.message}
           placeholder={"(xx)xxxxx-xxxx"}
           onChange={(event) => handlePhone(event)}
