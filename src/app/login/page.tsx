@@ -1,11 +1,14 @@
 "use client";
+import { AsideInfosLogo } from "@/components/AsideInfosLogo";
+import { Button } from "@/components/Button";
 import { Form } from "@/components/Form";
-import { Header } from "@/components/Header";
 import { Input } from "@/components/Input";
 import { AuthContext } from "@/contexts/AuthContext";
 import { Iclient, IloginClient } from "@/contexts/types";
 import { api } from "@/services/api";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
@@ -40,36 +43,59 @@ export default function LoginPage() {
   };
   return (
     <>
-      <Header
-        leftLinkName="Register"
-        leftLinkHref="/register"
-        rightLinkName="Home"
-        rightLinkHref="/"
-      />
-      <main className={styles.containerMain}>
-        <h1> Login</h1>
-        <Form onSubmit={handleSubmit(loginClient)}>
-          <Input
-            id="input-email"
-            labelName="Email"
-            type="email"
-            linkForm={register("email")}
-            error={errors.email?.message}
-            placeholder={"Digite seu email"}
-          />
+      <div className={styles.container}>
+        <main className={styles.containerMain}>
+          <div>
+            <AsideInfosLogo />
+            <section>
+              <h2> Login</h2>
+              <Form onSubmit={handleSubmit(loginClient)}>
+                <Input
+                  id="input-email"
+                  labelName="Email"
+                  type="email"
+                  linkForm={register("email")}
+                  error={errors.email?.message}
+                  placeholder={"Digite seu email"}
+                />
 
-          <Input
-            id="input-password"
-            labelName="Senha"
-            type="password"
-            linkForm={register("password")}
-            error={errors.password?.message}
-            placeholder={"Digite sua senha"}
-          />
+                <Input
+                  id="input-password"
+                  labelName="Senha"
+                  type="password"
+                  linkForm={register("password")}
+                  error={errors.password?.message}
+                  placeholder={"Digite sua senha"}
+                />
 
-          <button type="submit">Login</button>
-        </Form>
-      </main>
+                <Button type="submit" style="buttonLargeBlack">
+                  Entrar
+                </Button>
+              </Form>
+              <div>
+                <div>
+                  <p> Ainda não tem cadastro? </p>
+                  <Link href={"/register"}>Registro</Link>
+                </div>
+                <div>
+                  <p> ou </p>
+                </div>
+                <div>
+                  <p>Voltar para home? </p>
+                  <Link href={"/"}>
+                    <Image
+                      src={"/iconHome.svg"}
+                      alt="icon home"
+                      width={20}
+                      height={20}
+                    />
+                  </Link>
+                </div>
+              </div>
+            </section>
+          </div>
+        </main>
+      </div>
     </>
   );
 }

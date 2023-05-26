@@ -1,4 +1,5 @@
 "use client";
+import { AsideInfosLogo } from "@/components/AsideInfosLogo";
 import { Button } from "@/components/Button";
 import { Form } from "@/components/Form";
 import { AlertValidatePasswordRegister } from "@/components/Form/AlertValidatePasswordRegister";
@@ -45,14 +46,10 @@ export default function RegisterPage() {
   };
 
   return (
-    <>
+    <div className={styles.container}>
       <main className={styles.containerMain}>
         <div>
-          <aside>
-            <div>
-              <Image src={"/Logo.svg"} alt="logo" width={260} height={100} />
-            </div>
-          </aside>
+          <AsideInfosLogo />
           <section>
             <h2> Crie sua conta</h2>
 
@@ -140,6 +137,6 @@ export default function RegisterPage() {
           </section>
         </div>
       </main>
-    </>
+    </div>
   );
 }

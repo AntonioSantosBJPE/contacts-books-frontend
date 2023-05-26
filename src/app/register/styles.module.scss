@@ -1,5 +1,13 @@
+.container {
+  min-width: 100vw;
+  min-height: 100vh;
+  background-color: rgb(65, 174, 181, 0.9);
+}
+
 .containerMain {
+  margin: 0 auto;
   width: 100%;
+  max-width: 102.4rem;
   min-height: 100vh;
 
   display: flex;
@@ -15,21 +23,6 @@
     flex-direction: column;
 
     background-color: white;
-
-    & > aside {
-      width: 100%;
-
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
-
-      & > img {
-        width: 100%;
-        max-width: 30rem;
-      }
-    }
 
     & > section {
       width: 100%;
@@ -91,10 +84,6 @@
     @media (min-width: 768px) {
       width: 100%;
       flex-direction: row;
-
-      & > aside {
-        width: 100%;
-      }
 
       & > section {
         width: 100%;

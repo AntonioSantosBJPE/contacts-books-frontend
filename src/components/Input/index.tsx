@@ -29,6 +29,7 @@ export const Input = ({
     <div className={styles.containerInput}>
       <label htmlFor={id}>{labelName}</label>
       <input
+        autoComplete={"false"}
         type={type}
         id={id}
         placeholder={placeholder}
