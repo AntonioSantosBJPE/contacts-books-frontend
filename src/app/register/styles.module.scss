@@ -6,16 +6,13 @@
   justify-content: center;
 
   padding: 1rem;
-}
 
-.validPasswordTrue {
-  font-size: 1.4rem;
-  font-weight: 400;
-  color: green;
-}
+  & > div {
+    width: 100%;
+    max-width: 40rem;
 
-.validPasswordFalse {
-  font-size: 1.4rem;
-  font-weight: 400;
-  color: red;
+    display: flex;
+    flex-direction: column;
+    gap: 5rem;
+  }
 }

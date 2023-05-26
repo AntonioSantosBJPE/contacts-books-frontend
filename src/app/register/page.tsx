@@ -1,4 +1,5 @@
 "use client";
+import { Button } from "@/components/Button";
 import { Form } from "@/components/Form";
 import { AlertValidatePasswordRegister } from "@/components/Form/AlertValidatePasswordRegister";
 import { Header } from "@/components/Header";
@@ -51,69 +52,71 @@ export default function RegisterPage() {
         rightLinkHref="/"
       />
       <main className={styles.containerMain}>
-        <h1> Register</h1>
+        <div>
+          <h1> Crie sua conta</h1>
 
-        <Form onSubmit={handleSubmit(accountRegister)}>
-          <Input
-            id="input-name"
-            labelName="Nome"
-            type="text"
-            linkForm={register("name")}
-            error={errors.name?.message}
-            placeholder={"Digite seu nome"}
-            key={"name"}
-          />
+          <Form onSubmit={handleSubmit(accountRegister)}>
+            <Input
+              id="input-name"
+              labelName="Nome"
+              type="text"
+              linkForm={register("name")}
+              error={errors.name?.message}
+              placeholder={"Digite seu nome"}
+              key={"name"}
+            />
 
-          <Input
-            id="input-email"
-            labelName="Email"
-            type="email"
-            linkForm={register("email")}
-            error={errors.email?.message}
-            placeholder={"Digite seu email"}
-            key={"email"}
-          />
+            <Input
+              id="input-email"
+              labelName="Email"
+              type="email"
+              linkForm={register("email")}
+              error={errors.email?.message}
+              placeholder={"Digite seu email"}
+              key={"email"}
+            />
 
-          <Input
-            id="input-phone"
-            labelName="Telefone"
-            type="text"
-            linkForm={register("phone")}
-            error={errors.phone?.message}
-            placeholder={"(xx)xxxxx-xxxx"}
-            onChange={(event) => handlePhone(event)}
-            maxLength={14}
-            key={"phone"}
-          />
+            <Input
+              id="input-phone"
+              labelName="Telefone"
+              type="text"
+              linkForm={register("phone")}
+              error={errors.phone?.message}
+              placeholder={"(xx)xxxxx-xxxx"}
+              onChange={(event) => handlePhone(event)}
+              maxLength={14}
+              key={"phone"}
+            />
 
-          <Input
-            id="input-password"
-            labelName="Senha"
-            type="password"
-            linkForm={register("password")}
-            // error={errors.password?.message}
-            placeholder={"Digite sua senha"}
-            key={"password"}
-          />
+            <Input
+              id="input-password"
+              labelName="Senha"
+              type="password"
+              linkForm={register("password")}
+              placeholder={"Digite sua senha"}
+              key={"password"}
+            />
 
-          <Input
-            id="input-confirm-password"
-            labelName="Confirmação de senha"
-            type="password"
-            linkForm={register("confirmPassword")}
-            // error={errors.confirmPassword?.message}
-            placeholder={"Digite sua senha novamente"}
-            key={"confirmPassword"}
-          />
+            <Input
+              id="input-confirm-password"
+              labelName="Confirmação de senha"
+              type="password"
+              linkForm={register("confirmPassword")}
+              placeholder={"Digite sua senha novamente"}
+              key={"confirmPassword"}
+            />
 
-          <AlertValidatePasswordRegister
-            valueInputPassword={getValues().password}
-            errorPassword={errors.password?.message}
-            valueInputConfirmPassword={getValues().confirmPassword}
-            errorConfirmPassword={errors.confirmPassword?.message}
-          />
-          <button type="submit">Registrar</button>
-        </Form>
+            <AlertValidatePasswordRegister
+              valueInputPassword={getValues().password}
+              errorPassword={errors.password?.message}
+              valueInputConfirmPassword={getValues().confirmPassword}
+              errorConfirmPassword={errors.confirmPassword?.message}
+            />
+            <Button type="submit" style="buttonLargeBlack">
+              Registrar
+            </Button>
+          </Form>
+        </div>
       </main>
     </>
   );

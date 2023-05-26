@@ -37,7 +37,7 @@ export const Input = ({
         onChange={onChange}
         maxLength={maxLength}
       />
-      <p>{error}</p>
+      {error && <p>{error}</p>}
     </div>
   );
 };
