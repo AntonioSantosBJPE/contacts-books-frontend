@@ -29,6 +29,7 @@ export const Input = ({
     <div className={styles.containerInput}>
       <label htmlFor={id}>{labelName}</label>
       <input
+        autoComplete={"false"}
         type={type}
         id={id}
         placeholder={placeholder}
@@ -37,7 +38,7 @@ export const Input = ({
         onChange={onChange}
         maxLength={maxLength}
       />
-      <p>{error}</p>
+      {error && <p>{error}</p>}
     </div>
   );
 };
