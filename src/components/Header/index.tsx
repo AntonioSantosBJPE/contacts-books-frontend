@@ -3,10 +3,10 @@ import Link from "next/link";
 import styles from "./styles.module.scss";
 
 interface IheaderProps {
-  leftLinkName: string;
-  leftLinkHref: string;
-  rightLinkName: string;
-  rightLinkHref: string;
+  leftLinkName?: string;
+  leftLinkHref?: string;
+  rightLinkName?: string;
+  rightLinkHref?: string;
 }
 
 export const Header = ({
@@ -19,8 +19,12 @@ export const Header = ({
     <header className={styles.boxHeader}>
       <Image src={"/Logo.svg"} alt="logo" width={250} height={80} />
       <div>
-        <Link href={leftLinkHref}>{leftLinkName}</Link>
-        <Link href={rightLinkHref}>{rightLinkName}</Link>
+        {leftLinkName && leftLinkHref && (
+          <Link href={leftLinkHref}>{leftLinkName}</Link>
+        )}
+        {rightLinkName && rightLinkHref && (
+          <Link href={rightLinkHref}>{rightLinkName}</Link>
+        )}
       </div>
     </header>
   );

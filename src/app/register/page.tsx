@@ -2,11 +2,12 @@
 import { Button } from "@/components/Button";
 import { Form } from "@/components/Form";
 import { AlertValidatePasswordRegister } from "@/components/Form/AlertValidatePasswordRegister";
-import { Header } from "@/components/Header";
 import { AuthContext } from "@/contexts/AuthContext";
 import { Iclient, IloginClient } from "@/contexts/types";
 import { api } from "@/services/api";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
@@ -45,77 +46,98 @@ export default function RegisterPage() {
 
   return (
     <>
-      <Header
-        leftLinkName="Login"
-        leftLinkHref="/login"
-        rightLinkName="Home"
-        rightLinkHref="/"
-      />
       <main className={styles.containerMain}>
         <div>
-          <h1> Crie sua conta</h1>
+          <aside>
+            <div>
+              <Image src={"/Logo.svg"} alt="logo" width={260} height={100} />
+            </div>
+          </aside>
+          <section>
+            <h2> Crie sua conta</h2>
 
-          <Form onSubmit={handleSubmit(accountRegister)}>
-            <Input
-              id="input-name"
-              labelName="Nome"
-              type="text"
-              linkForm={register("name")}
-              error={errors.name?.message}
-              placeholder={"Digite seu nome"}
-              key={"name"}
-            />
+            <Form onSubmit={handleSubmit(accountRegister)}>
+              <Input
+                id="input-name"
+                labelName="Nome"
+                type="text"
+                linkForm={register("name")}
+                error={errors.name?.message}
+                placeholder={"Digite seu nome"}
+                key={"name"}
+              />
 
-            <Input
-              id="input-email"
-              labelName="Email"
-              type="email"
-              linkForm={register("email")}
-              error={errors.email?.message}
-              placeholder={"Digite seu email"}
-              key={"email"}
-            />
+              <Input
+                id="input-email"
+                labelName="Email"
+                type="email"
+                linkForm={register("email")}
+                error={errors.email?.message}
+                placeholder={"Digite seu email"}
+                key={"email"}
+              />
 
-            <Input
-              id="input-phone"
-              labelName="Telefone"
-              type="text"
-              linkForm={register("phone")}
-              error={errors.phone?.message}
-              placeholder={"(xx)xxxxx-xxxx"}
-              onChange={(event) => handlePhone(event)}
-              maxLength={14}
-              key={"phone"}
-            />
+              <Input
+                id="input-phone"
+                labelName="Telefone"
+                type="text"
+                linkForm={register("phone")}
+                error={errors.phone?.message}
+                placeholder={"(xx)xxxxx-xxxx"}
+                onChange={(event) => handlePhone(event)}
+                maxLength={14}
+                key={"phone"}
+              />
 
-            <Input
-              id="input-password"
-              labelName="Senha"
-              type="password"
-              linkForm={register("password")}
-              placeholder={"Digite sua senha"}
-              key={"password"}
-            />
+              <Input
+                id="input-password"
+                labelName="Senha"
+                type="password"
+                linkForm={register("password")}
+                placeholder={"Digite sua senha"}
+                key={"password"}
+              />
 
-            <Input
-              id="input-confirm-password"
-              labelName="Confirmação de senha"
-              type="password"
-              linkForm={register("confirmPassword")}
-              placeholder={"Digite sua senha novamente"}
-              key={"confirmPassword"}
-            />
+              <Input
+                id="input-confirm-password"
+                labelName="Confirmação de senha"
+                type="password"
+                linkForm={register("confirmPassword")}
+                placeholder={"Digite sua senha novamente"}
+                key={"confirmPassword"}
+              />
 
-            <AlertValidatePasswordRegister
-              valueInputPassword={getValues().password}
-              errorPassword={errors.password?.message}
-              valueInputConfirmPassword={getValues().confirmPassword}
-              errorConfirmPassword={errors.confirmPassword?.message}
-            />
-            <Button type="submit" style="buttonLargeBlack">
-              Registrar
-            </Button>
-          </Form>
+              <AlertValidatePasswordRegister
+                valueInputPassword={getValues().password}
+                errorPassword={errors.password?.message}
+                valueInputConfirmPassword={getValues().confirmPassword}
+                errorConfirmPassword={errors.confirmPassword?.message}
+              />
+              <Button type="submit" style="buttonLargeBlack">
+                Registrar
+              </Button>
+            </Form>
+            <div>
+              <div>
+                <p> Já está cadastrado? </p>
+                <Link href={"/login"}>Login</Link>
+              </div>
+              <div>
+                <p> ou </p>
+              </div>
+              <div>
+                <p>Voltar para home? </p>
+                <Link href={"/"}>
+                  <Image
+                    src={"/iconHome.svg"}
+                    alt="icon home"
+                    width={20}
+                    height={20}
+                  />
+                </Link>
+              </div>
+            </div>
+          </section>
         </div>
       </main>
     </>
