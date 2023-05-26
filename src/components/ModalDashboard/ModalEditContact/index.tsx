@@ -1,13 +1,16 @@
 import { handlePhone } from "@/app/register/utils";
+import { Button } from "@/components/Button";
 import { Form } from "@/components/Form";
 import { Input } from "@/components/Input";
 import { DashboardContext } from "@/contexts/ContactsContext";
 import { Icontacts } from "@/contexts/types";
 import { api } from "@/services/api";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Image from "next/image";
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { schemaEditContact, TeditContact } from "./schema";
+import styles from "./styles.module.scss";
 
 interface ImodalEditContact {}
 
@@ -44,8 +47,16 @@ export const ModalEditContact = ({}: ImodalEditContact) => {
     }
   };
   return (
-    <>
-      <button onClick={closeModal}>close</button>
+    <div className={styles.containerModal}>
+      <Button style="buttonIconSmall" type="button" actionClick={closeModal}>
+        <Image
+          src={"/icon-close.svg"}
+          alt="close modal"
+          width={25}
+          height={25}
+        />
+      </Button>
+      <h2>Editar contato</h2>
       <Form onSubmit={handleSubmit(editContactSubmit)}>
         <Input
           id="input-name"
@@ -75,8 +86,10 @@ export const ModalEditContact = ({}: ImodalEditContact) => {
           onChange={(event) => handlePhone(event)}
           maxLength={14}
         />
-        <button type="submit">Editar</button>
+        <Button type="submit" style="buttonLargeBlack">
+          Confirmar Edição
+        </Button>
       </Form>
-    </>
+    </div>
   );
 };

@@ -4,7 +4,7 @@ import styles from "./styles.module.scss";
 interface IbuttonProps {
   children: ReactNode;
   type: "submit" | "button" | "reset";
-  style: "buttonLargeBlack" | "buttonIcon";
+  style: "buttonLargeBlack" | "buttonIcon" | "buttonIconSmall";
   actionClick?: () => void;
 }
 
@@ -23,6 +23,15 @@ export const Button = ({
       )}
       {style === "buttonIcon" && (
         <button className={styles.buttonIcon} type={type} onClick={actionClick}>
+          {children}
+        </button>
+      )}
+      {style === "buttonIconSmall" && (
+        <button
+          className={styles.buttonIconSmall}
+          type={type}
+          onClick={actionClick}
+        >
           {children}
         </button>
       )}

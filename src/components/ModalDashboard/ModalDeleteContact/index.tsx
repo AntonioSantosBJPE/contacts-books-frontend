@@ -1,7 +1,10 @@
+import { Button } from "@/components/Button";
 import { Form } from "@/components/Form";
 import { DashboardContext } from "@/contexts/ContactsContext";
 import { api } from "@/services/api";
+import Image from "next/image";
 import { FormEvent, useContext } from "react";
+import styles from "./styles.module.scss";
 
 interface ImodalDeleteContact {}
 
@@ -25,11 +28,22 @@ export const ModalDeleteContact = ({}: ImodalDeleteContact) => {
     }
   };
   return (
-    <>
-      <button onClick={closeModal}>close</button>
+    <div className={styles.containerModal}>
+      <Button style="buttonIconSmall" type="button" actionClick={closeModal}>
+        <Image
+          src={"/icon-close.svg"}
+          alt="close modal"
+          width={25}
+          height={25}
+        />
+      </Button>
+      <h2>Apagar contato</h2>
+      <p>Tem certeza que deseja apagar o contato: {contactIsEdit.name} </p>
       <Form onSubmit={deleteContactSubmit}>
-        <button type="submit">Deletar</button>
+        <Button type="submit" style="buttonLargeBlack">
+          Confirmar Deleção
+        </Button>
       </Form>
-    </>
+    </div>
   );
 };

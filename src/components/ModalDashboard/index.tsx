@@ -12,7 +12,9 @@ const customStyles = {
     right: "auto",
     bottom: "auto",
     transform: "translate(-50%, -50%)",
-    minWidth: "300px",
+    minWidth: "30rem",
+    maxWidth: "50rem",
+    width: "100%",
   },
 };
 

@@ -58,7 +58,11 @@ export default function DashboardPage() {
             <button onClick={() => openModal("registerContact")}>
               Cadastrar contato
             </button>
-            <TableContacts contacts={contacts} />
+            {contacts.length > 0 ? (
+              <TableContacts contacts={contacts} />
+            ) : (
+              <h2>Nenhum contato cadastrado!</h2>
+            )}
           </>
         ) : (
           <h1>Carregando...</h1>
