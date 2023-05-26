@@ -21,3 +21,41 @@
     background-color: rgb(0, 0, 0, 0.7);
   }
 }
+
+.buttonIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  width: 8rem;
+  height: 6rem;
+
+  background-color: transparent;
+
+  font-size: 1.8rem;
+  font-weight: 500;
+  color: rgb(65, 174, 181);
+
+  border: none;
+
+  transition: 0.5s;
+
+  & > span {
+    display: block;
+  }
+
+  &:hover {
+    border-radius: 0.5rem;
+    border: 1px solid;
+    border-color: rgb(65, 174, 181);
+  }
+
+  @media (min-width: 425px) {
+    flex-direction: row;
+    & > span {
+      display: block;
+    }
+  }
+}

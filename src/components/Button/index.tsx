@@ -4,14 +4,25 @@ import styles from "./styles.module.scss";
 interface IbuttonProps {
   children: ReactNode;
   type: "submit" | "button" | "reset";
-  style: "buttonLargeBlack";
+  style: "buttonLargeBlack" | "buttonIcon";
+  actionClick?: () => void;
 }
 
-export const Button = ({ children, type, style }: IbuttonProps) => {
+export const Button = ({
+  children,
+  type,
+  style,
+  actionClick,
+}: IbuttonProps) => {
   return (
     <>
       {style === "buttonLargeBlack" && (
         <button className={styles.buttonLargeBlack} type={type}>
+          {children}
+        </button>
+      )}
+      {style === "buttonIcon" && (
+        <button className={styles.buttonIcon} type={type} onClick={actionClick}>
           {children}
         </button>
       )}
