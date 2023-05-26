@@ -1,5 +1,6 @@
 "use client";
 import { Form } from "@/components/Form";
+import { AlertValidatePasswordRegister } from "@/components/Form/AlertValidatePasswordRegister";
 import { Header } from "@/components/Header";
 import { AuthContext } from "@/contexts/AuthContext";
 import { Iclient, IloginClient } from "@/contexts/types";
@@ -20,6 +21,7 @@ export default function RegisterPage() {
     register,
     handleSubmit,
     formState: { errors },
+    getValues,
   } = useForm<TregisterData>({
     mode: "onBlur",
     resolver: zodResolver(schema),
@@ -59,6 +61,7 @@ export default function RegisterPage() {
             linkForm={register("name")}
             error={errors.name?.message}
             placeholder={"Digite seu nome"}
+            key={"name"}
           />
 
           <Input
@@ -68,6 +71,7 @@ export default function RegisterPage() {
             linkForm={register("email")}
             error={errors.email?.message}
             placeholder={"Digite seu email"}
+            key={"email"}
           />
 
           <Input
@@ -79,6 +83,7 @@ export default function RegisterPage() {
             placeholder={"(xx)xxxxx-xxxx"}
             onChange={(event) => handlePhone(event)}
             maxLength={14}
+            key={"phone"}
           />
 
           <Input
@@ -86,8 +91,9 @@ export default function RegisterPage() {
             labelName="Senha"
             type="password"
             linkForm={register("password")}
-            error={errors.password?.message}
+            // error={errors.password?.message}
             placeholder={"Digite sua senha"}
+            key={"password"}
           />
 
           <Input
@@ -95,10 +101,17 @@ export default function RegisterPage() {
             labelName="Confirmação de senha"
             type="password"
             linkForm={register("confirmPassword")}
-            error={errors.confirmPassword?.message}
+            // error={errors.confirmPassword?.message}
             placeholder={"Digite sua senha novamente"}
+            key={"confirmPassword"}
           />
 
+          <AlertValidatePasswordRegister
+            valueInputPassword={getValues().password}
+            errorPassword={errors.password?.message}
+            valueInputConfirmPassword={getValues().confirmPassword}
+            errorConfirmPassword={errors.confirmPassword?.message}
+          />
           <button type="submit">Registrar</button>
         </Form>
       </main>

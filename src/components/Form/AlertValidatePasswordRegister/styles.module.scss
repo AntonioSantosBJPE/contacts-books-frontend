@@ -1,0 +1,21 @@
+.containerValidates {
+  width: 100%;
+
+  p {
+    transition: 0.5s;
+  }
+}
+
+.validPasswordTrue {
+  font-weight: 400;
+  font-size: 1.4rem;
+  line-height: 1.5rem;
+  color: #41aeb5;
+}
+
+.validPasswordFalse {
+  font-weight: 400;
+  font-size: 1.4rem;
+  line-height: 1.5rem;
+  color: red;
+}
