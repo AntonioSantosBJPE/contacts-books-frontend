@@ -1,6 +1,6 @@
 "use client";
-import { ListContacts } from "@/components/ListContacts";
 import { ModalDashboard } from "@/components/ModalDashboard";
+import { TableContacts } from "@/components/TableContacts";
 import { AuthContext } from "@/contexts/AuthContext";
 import { DashboardContext } from "@/contexts/ContactsContext";
 import { Iclient } from "@/contexts/types";
@@ -58,11 +58,7 @@ export default function DashboardPage() {
             <button onClick={() => openModal("registerContact")}>
               Cadastrar contato
             </button>
-            {contacts.length > 0 ? (
-              <ListContacts contacts={contacts} />
-            ) : (
-              <h2>Não existem contatos cadastrados!</h2>
-            )}
+            <TableContacts contacts={contacts} />
           </>
         ) : (
           <h1>Carregando...</h1>
