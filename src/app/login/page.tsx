@@ -1,6 +1,7 @@
 "use client";
 import { AsideInfosLogo } from "@/components/AsideInfosLogo";
 import { Button } from "@/components/Button";
+import { CustomSnackbar } from "@/components/CustomSnackbar";
 import { Form } from "@/components/Form";
 import { Input } from "@/components/Input";
 import { AuthContext } from "@/contexts/AuthContext";
@@ -17,7 +18,7 @@ import { schema, TloginData } from "./schema";
 import styles from "./styles.module.scss";
 
 export default function LoginPage() {
-  const { udpateClient } = useContext(AuthContext);
+  const { udpateClient, openSnackBar } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const {
@@ -38,12 +39,17 @@ export default function LoginPage() {
       localStorage.setItem("@contacts-book:token", accessToken);
       const responseProfile = await api.get<Iclient>("/clients/profile");
       udpateClient(responseProfile.data);
-
+      openSnackBar("success", "Login realizado!");
       router.push("/dashboard");
-    } catch (error) {
+    } catch (error: any) {
+      if (error.message === "Network Error") {
+        openSnackBar("error", "Erro no servidor, tente novamente.");
+      } else {
+        openSnackBar("error", "Email ou sehna inválidos");
+      }
+      setIsLoading(false);
       console.error(error);
     } finally {
-      setIsLoading(false);
     }
   };
   return (
@@ -105,6 +111,7 @@ export default function LoginPage() {
           </div>
         </main>
       </div>
+      <CustomSnackbar />
     </>
   );
 }

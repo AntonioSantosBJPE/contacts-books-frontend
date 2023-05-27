@@ -1,5 +1,6 @@
 import { Button } from "@/components/Button";
 import { Form } from "@/components/Form";
+import { AuthContext } from "@/contexts/AuthContext";
 import { DashboardContext } from "@/contexts/ContactsContext";
 import { api } from "@/services/api";
 import { CircularProgress } from "@mui/material";
@@ -12,6 +13,7 @@ interface ImodalDeleteContact {}
 export const ModalDeleteContact = ({}: ImodalDeleteContact) => {
   const { contacts, setContacts, closeModal, contactIsEdit } =
     useContext(DashboardContext);
+  const { openSnackBar } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
 
   const deleteContactSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -25,11 +27,13 @@ export const ModalDeleteContact = ({}: ImodalDeleteContact) => {
         (contact) => contact.id !== contactIsEdit.id
       );
       setContacts(newContacts);
+      openSnackBar("success", "Contato apagado!");
       closeModal();
     } catch (error) {
+      openSnackBar("error", "Erro no servidor, tente novamente.");
+      closeModal();
       console.error(error);
     } finally {
-      setIsLoading(false);
     }
   };
   return (

@@ -40,7 +40,7 @@ export default function Home() {
           <Image
             src={"/Logo.svg"}
             alt="logo"
-            width={80}
+            width={120}
             height={40}
             priority={true}
           />

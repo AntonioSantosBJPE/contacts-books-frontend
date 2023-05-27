@@ -1,9 +1,17 @@
-import { Dispatch, ReactNode, SetStateAction } from "react";
+import { Dispatch, ReactNode, SetStateAction, SyntheticEvent } from "react";
 
 export interface IauthContext {
   udpateClient: (data: Iclient) => void;
   client: Iclient | undefined;
   logoutClient: () => void;
+  snackBar: boolean;
+  openSnackBar: (type: TsnackBarTypes, message: string) => void;
+  handleCloseSnackBar: (
+    event?: Event | SyntheticEvent<Element, Event> | undefined,
+    reason?: string | undefined
+  ) => void;
+  snackBarType: TsnackBarTypes;
+  snackBarMessage: string;
 }
 export interface IauthProviderProps {
   children: ReactNode;
@@ -44,3 +52,5 @@ export type TmodalTypes =
   | "editContact"
   | "deleteContact"
   | "editClient";
+
+export type TsnackBarTypes = "success" | "error";

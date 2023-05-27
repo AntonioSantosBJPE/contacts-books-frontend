@@ -2,6 +2,7 @@ import { handlePhone } from "@/app/register/utils";
 import { Button } from "@/components/Button";
 import { Form } from "@/components/Form";
 import { Input } from "@/components/Input";
+import { AuthContext } from "@/contexts/AuthContext";
 import { DashboardContext } from "@/contexts/ContactsContext";
 import { Icontacts } from "@/contexts/types";
 import { api } from "@/services/api";
@@ -17,6 +18,7 @@ interface ImodalCreateContact {}
 
 export const ModalCreateContact = ({}: ImodalCreateContact) => {
   const { contacts, setContacts, closeModal } = useContext(DashboardContext);
+  const { openSnackBar } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
   const {
     register,
@@ -33,11 +35,22 @@ export const ModalCreateContact = ({}: ImodalCreateContact) => {
       const response = await api.post<Icontacts>("/contacts", data);
 
       setContacts((oldContacts) => [...oldContacts, response.data]);
+      openSnackBar("success", "Contato criado!");
       closeModal();
-    } catch (error) {
+    } catch (error: any) {
+      if (error.message === "Network Error") {
+        openSnackBar("error", "Erro no servidor, tente novamente.");
+        closeModal();
+      } else {
+        openSnackBar(
+          "error",
+          "Email já está sendo utilizado por outro contato"
+        );
+        setIsLoading(false);
+      }
+
       console.error(error);
     } finally {
-      setIsLoading(false);
     }
   };
   return (

@@ -1,6 +1,7 @@
 "use client";
 import { AsideInfosLogo } from "@/components/AsideInfosLogo";
 import { Button } from "@/components/Button";
+import { CustomSnackbar } from "@/components/CustomSnackbar";
 import { Form } from "@/components/Form";
 import { AlertValidatePasswordRegister } from "@/components/Form/AlertValidatePasswordRegister";
 import { AuthContext } from "@/contexts/AuthContext";
@@ -19,7 +20,7 @@ import styles from "./styles.module.scss";
 import { handlePhone } from "./utils";
 
 export default function RegisterPage() {
-  const { udpateClient } = useContext(AuthContext);
+  const { udpateClient, openSnackBar } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const {
@@ -41,12 +42,16 @@ export default function RegisterPage() {
       const { accessToken } = responseLogin.data;
       api.defaults.headers.common.authorization = `Bearer ${accessToken}`;
       localStorage.setItem("@contacts-book:token", accessToken);
-
+      openSnackBar("success", "Cadastro realizado!");
       router.push("/dashboard");
-    } catch (error) {
-      console.error(error);
-    } finally {
+    } catch (error: any) {
+      if (error.message === "Network Error") {
+        openSnackBar("error", "Erro no servidor, tente novamente.");
+      } else {
+        openSnackBar("error", "Email já em uso, realize o login ou mude-o!");
+      }
       setIsLoading(false);
+    } finally {
     }
   };
 
@@ -146,6 +151,7 @@ export default function RegisterPage() {
           </section>
         </div>
       </main>
+      <CustomSnackbar />
     </div>
   );
 }
