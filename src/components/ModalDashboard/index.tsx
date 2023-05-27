@@ -1,37 +1,42 @@
 import { DashboardContext } from "@/contexts/ContactsContext";
+import Backdrop from "@mui/material/Backdrop";
+import Box from "@mui/material/Box";
+import Fade from "@mui/material/Fade";
+import Modal from "@mui/material/Modal";
 import { useContext } from "react";
-import Modal from "react-modal";
 import { ModalCreateContact } from "./ModalCreateContact";
 import { ModalDeleteContact } from "./ModalDeleteContact";
 import { ModalEditClient } from "./ModalEditClient";
 import { ModalEditContact } from "./ModalEditContact";
-const customStyles = {
-  content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    transform: "translate(-50%, -50%)",
-    minWidth: "300px",
-  },
-};
+import { style } from "./styleMui";
 
 interface ImodalDashboard {}
 
 export const ModalDashboard = ({}: ImodalDashboard) => {
   const { closeModal, modalIsOpen, modalType } = useContext(DashboardContext);
   return (
-    <Modal
-      isOpen={modalIsOpen}
-      onRequestClose={closeModal}
-      style={customStyles}
-      contentLabel="Example Modal"
-      ariaHideApp={false}
-    >
-      {modalType == "registerContact" && <ModalCreateContact />}
-      {modalType == "editContact" && <ModalEditContact />}
-      {modalType == "deleteContact" && <ModalDeleteContact />}
-      {modalType == "editClient" && <ModalEditClient />}
-    </Modal>
+    <>
+      <Modal
+        aria-labelledby="transition-modal-title"
+        open={modalIsOpen}
+        onClose={closeModal}
+        closeAfterTransition
+        slots={{ backdrop: Backdrop }}
+        slotProps={{
+          backdrop: {
+            timeout: 500,
+          },
+        }}
+      >
+        <Fade in={modalIsOpen}>
+          <Box sx={style}>
+            {modalType == "registerContact" && <ModalCreateContact />}
+            {modalType == "editContact" && <ModalEditContact />}
+            {modalType == "deleteContact" && <ModalDeleteContact />}
+            {modalType == "editClient" && <ModalEditClient />}
+          </Box>
+        </Fade>
+      </Modal>
+    </>
   );
 };

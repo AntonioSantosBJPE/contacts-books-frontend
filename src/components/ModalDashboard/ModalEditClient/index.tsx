@@ -1,4 +1,5 @@
 import { handlePhone } from "@/app/register/utils";
+import { Button } from "@/components/Button";
 import { Form } from "@/components/Form";
 import { Input } from "@/components/Input";
 import { AuthContext } from "@/contexts/AuthContext";
@@ -6,15 +7,20 @@ import { DashboardContext } from "@/contexts/ContactsContext";
 import { Iclient } from "@/contexts/types";
 import { api } from "@/services/api";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useContext } from "react";
+import { CircularProgress } from "@mui/material";
+import Image from "next/image";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { schemaEditClient, TeditClient } from "./schema";
+import styles from "./styles.module.scss";
 
 interface ImodalEditClient {}
 
 export const ModalEditClient = ({}: ImodalEditClient) => {
   const { closeModal } = useContext(DashboardContext);
   const { client, udpateClient } = useContext(AuthContext);
+  const [isLoading, setIsLoading] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -30,6 +36,7 @@ export const ModalEditClient = ({}: ImodalEditClient) => {
 
   const editClientSubmit = async (data: TeditClient) => {
     try {
+      setIsLoading(true);
       const response = await api.patch<Iclient>(
         `/clients/profile/${client!.id}`,
         data
@@ -38,11 +45,21 @@ export const ModalEditClient = ({}: ImodalEditClient) => {
       closeModal();
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
   return (
-    <>
-      <button onClick={closeModal}>close</button>
+    <div className={styles.containerModal}>
+      <Button style="buttonIconSmall" type="button" actionClick={closeModal}>
+        <Image
+          src={"/icon-close.svg"}
+          alt="close modal"
+          width={25}
+          height={25}
+        />
+      </Button>
+      <h2 id="transition-modal-title">Editar perfil</h2>
       <Form onSubmit={handleSubmit(editClientSubmit)}>
         <Input
           id="input-name"
@@ -72,8 +89,14 @@ export const ModalEditClient = ({}: ImodalEditClient) => {
           onChange={(event) => handlePhone(event)}
           maxLength={14}
         />
-        <button type="submit">Editar</button>
+        <Button type="submit" style="buttonLargeBlack" isDisabled={isLoading}>
+          {isLoading ? (
+            <CircularProgress color="inherit" />
+          ) : (
+            "Confirmar Edição"
+          )}
+        </Button>
       </Form>
-    </>
+    </div>
   );
 };
