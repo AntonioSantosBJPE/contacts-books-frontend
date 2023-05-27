@@ -1,0 +1,31 @@
+.containerModal {
+  width: 100%;
+  min-height: 12rem;
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  gap: 1.5rem;
+
+  & > h2 {
+    font-size: 2.4rem;
+    font-weight: 600;
+    color: black;
+  }
+
+  & > p {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #2f7d82;
+
+    width: 100%;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

@@ -25,7 +25,7 @@ export default function Home() {
             </div>
             <figure>
               <Image
-                src={"/home-page-gif.gif"}
+                src={"/img-list-home.png"}
                 alt="gif home page"
                 width={280}
                 height={280}

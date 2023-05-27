@@ -16,6 +16,7 @@ export const AuthProvider = ({ children }: IauthProviderProps) => {
   const [snackBar, setSnackBar] = useState(false);
   const [snackBarType, setSnackBarType] = useState<TsnackBarTypes>("success");
   const [snackBarMessage, setSnackBarMessage] = useState("");
+  const [notAuth, setNotAuth] = useState(true);
 
   const router = useRouter();
 
@@ -60,6 +61,8 @@ export const AuthProvider = ({ children }: IauthProviderProps) => {
         handleCloseSnackBar,
         snackBarType,
         snackBarMessage,
+        notAuth,
+        setNotAuth,
       }}
     >
       {children}

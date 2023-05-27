@@ -3,6 +3,7 @@ import { Button } from "@/components/Button";
 import { CustomSnackbar } from "@/components/CustomSnackbar";
 import { HeaderDashboard } from "@/components/Header/HeaderDashboard";
 import { ModalDashboard } from "@/components/ModalDashboard";
+import { SkeletonDashboard } from "@/components/Skeletons/SkeletonDashboard";
 import { TableContacts } from "@/components/TableContacts";
 import { OverlayNotContacts } from "@/components/TableContacts/OverlayNotContacts";
 import { AuthContext } from "@/contexts/AuthContext";
@@ -15,7 +16,8 @@ import { useContext, useEffect } from "react";
 import styles from "./styles.module.scss";
 
 export default function DashboardPage() {
-  const { client, udpateClient, logoutClient } = useContext(AuthContext);
+  const { client, udpateClient, logoutClient, setNotAuth } =
+    useContext(AuthContext);
   const { contacts, requestContacts, openModal } = useContext(DashboardContext);
 
   const router = useRouter();
@@ -24,22 +26,24 @@ export default function DashboardPage() {
     const token: string | null = localStorage.getItem("@contacts-book:token");
 
     if (!token) {
-      router.push("/login");
+      openModal("noAuth");
     } else {
       if (!client) {
         (async () => {
           try {
             api.defaults.headers.common.authorization = `Bearer ${token}`;
             const response = await api.get<Iclient>("/clients/profile");
+            setNotAuth(false);
             udpateClient(response.data);
             requestContacts(response.data.id);
           } catch (error) {
             console.error(error);
             api.defaults.headers.common.authorization = `Bearer`;
-            router.push("/login");
+            openModal("noAuth");
           }
         })();
       } else {
+        setNotAuth(false);
         requestContacts(client.id);
       }
     }
@@ -50,10 +54,9 @@ export default function DashboardPage() {
   return (
     <>
       <ModalDashboard />
-
+      <HeaderDashboard logoutClient={logoutClient} />
       {client ? (
         <>
-          <HeaderDashboard logoutClient={logoutClient} />
           <div className={styles.container}>
             <main className={styles.containerMain}>
               <div className={styles.containerSections}>
@@ -102,9 +105,7 @@ export default function DashboardPage() {
           </div>
         </>
       ) : (
-        <div className={styles.container}>
-          <h1>Carregando...</h1>
-        </div>
+        <SkeletonDashboard />
       )}
       <CustomSnackbar />
     </>

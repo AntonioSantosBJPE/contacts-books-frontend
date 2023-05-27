@@ -12,6 +12,8 @@ export interface IauthContext {
   ) => void;
   snackBarType: TsnackBarTypes;
   snackBarMessage: string;
+  notAuth: boolean;
+  setNotAuth: Dispatch<SetStateAction<boolean>>;
 }
 export interface IauthProviderProps {
   children: ReactNode;
@@ -51,6 +53,7 @@ export type TmodalTypes =
   | "registerContact"
   | "editContact"
   | "deleteContact"
-  | "editClient";
+  | "editClient"
+  | "noAuth";
 
 export type TsnackBarTypes = "success" | "error";
