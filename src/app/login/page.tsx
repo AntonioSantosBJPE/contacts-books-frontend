@@ -7,16 +7,18 @@ import { AuthContext } from "@/contexts/AuthContext";
 import { Iclient, IloginClient } from "@/contexts/types";
 import { api } from "@/services/api";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { CircularProgress } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { schema, TloginData } from "./schema";
 import styles from "./styles.module.scss";
 
 export default function LoginPage() {
   const { udpateClient } = useContext(AuthContext);
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const {
     register,
@@ -29,6 +31,7 @@ export default function LoginPage() {
 
   const loginClient = async (data: TloginData) => {
     try {
+      setIsLoading(true);
       const responseLogin = await api.post<IloginClient>("/login", data);
       const { accessToken } = responseLogin.data;
       api.defaults.headers.common.authorization = `Bearer ${accessToken}`;
@@ -39,6 +42,8 @@ export default function LoginPage() {
       router.push("/dashboard");
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
   return (
@@ -68,8 +73,12 @@ export default function LoginPage() {
                   placeholder={"Digite sua senha"}
                 />
 
-                <Button type="submit" style="buttonLargeBlack">
-                  Entrar
+                <Button
+                  type="submit"
+                  style="buttonLargeBlack"
+                  isDisabled={isLoading}
+                >
+                  {isLoading ? <CircularProgress color="inherit" /> : "Entrar"}
                 </Button>
               </Form>
               <div>

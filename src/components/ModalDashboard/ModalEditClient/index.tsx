@@ -7,8 +7,9 @@ import { DashboardContext } from "@/contexts/ContactsContext";
 import { Iclient } from "@/contexts/types";
 import { api } from "@/services/api";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { CircularProgress } from "@mui/material";
 import Image from "next/image";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { schemaEditClient, TeditClient } from "./schema";
 import styles from "./styles.module.scss";
@@ -18,6 +19,8 @@ interface ImodalEditClient {}
 export const ModalEditClient = ({}: ImodalEditClient) => {
   const { closeModal } = useContext(DashboardContext);
   const { client, udpateClient } = useContext(AuthContext);
+  const [isLoading, setIsLoading] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -33,6 +36,7 @@ export const ModalEditClient = ({}: ImodalEditClient) => {
 
   const editClientSubmit = async (data: TeditClient) => {
     try {
+      setIsLoading(true);
       const response = await api.patch<Iclient>(
         `/clients/profile/${client!.id}`,
         data
@@ -41,6 +45,8 @@ export const ModalEditClient = ({}: ImodalEditClient) => {
       closeModal();
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
   return (
@@ -83,8 +89,12 @@ export const ModalEditClient = ({}: ImodalEditClient) => {
           onChange={(event) => handlePhone(event)}
           maxLength={14}
         />
-        <Button type="submit" style="buttonLargeBlack">
-          Confirmar Edição
+        <Button type="submit" style="buttonLargeBlack" isDisabled={isLoading}>
+          {isLoading ? (
+            <CircularProgress color="inherit" />
+          ) : (
+            "Confirmar Edição"
+          )}
         </Button>
       </Form>
     </div>

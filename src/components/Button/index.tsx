@@ -6,6 +6,7 @@ interface IbuttonProps {
   type: "submit" | "button" | "reset";
   style: "buttonLargeBlack" | "buttonIcon" | "buttonIconSmall";
   actionClick?: () => void;
+  isDisabled?: boolean;
 }
 
 export const Button = ({
@@ -13,11 +14,16 @@ export const Button = ({
   type,
   style,
   actionClick,
+  isDisabled,
 }: IbuttonProps) => {
   return (
     <>
       {style === "buttonLargeBlack" && (
-        <button className={styles.buttonLargeBlack} type={type}>
+        <button
+          className={styles.buttonLargeBlack}
+          type={type}
+          disabled={isDisabled}
+        >
           {children}
         </button>
       )}

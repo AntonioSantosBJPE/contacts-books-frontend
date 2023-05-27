@@ -6,8 +6,9 @@ import { DashboardContext } from "@/contexts/ContactsContext";
 import { Icontacts } from "@/contexts/types";
 import { api } from "@/services/api";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { CircularProgress } from "@mui/material";
 import Image from "next/image";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { schemaEditContact, TeditContact } from "./schema";
 import styles from "./styles.module.scss";
@@ -17,6 +18,9 @@ interface ImodalEditContact {}
 export const ModalEditContact = ({}: ImodalEditContact) => {
   const { contacts, setContacts, closeModal, contactIsEdit } =
     useContext(DashboardContext);
+
+  const [isLoading, setIsLoading] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -32,6 +36,7 @@ export const ModalEditContact = ({}: ImodalEditContact) => {
 
   const editContactSubmit = async (data: TeditContact) => {
     try {
+      setIsLoading(true);
       const response = await api.patch<Icontacts>(
         `/contacts/${contactIsEdit.id}`,
         data
@@ -44,6 +49,8 @@ export const ModalEditContact = ({}: ImodalEditContact) => {
       closeModal();
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
   return (
@@ -86,8 +93,12 @@ export const ModalEditContact = ({}: ImodalEditContact) => {
           onChange={(event) => handlePhone(event)}
           maxLength={14}
         />
-        <Button type="submit" style="buttonLargeBlack">
-          Confirmar Edição
+        <Button type="submit" style="buttonLargeBlack" isDisabled={isLoading}>
+          {isLoading ? (
+            <CircularProgress color="inherit" />
+          ) : (
+            "Confirmar Edição"
+          )}
         </Button>
       </Form>
     </div>

@@ -6,8 +6,9 @@ import { DashboardContext } from "@/contexts/ContactsContext";
 import { Icontacts } from "@/contexts/types";
 import { api } from "@/services/api";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { CircularProgress } from "@mui/material";
 import Image from "next/image";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { schema, TcreateContact } from "./schema";
 import styles from "./styles.module.scss";
@@ -16,6 +17,7 @@ interface ImodalCreateContact {}
 
 export const ModalCreateContact = ({}: ImodalCreateContact) => {
   const { contacts, setContacts, closeModal } = useContext(DashboardContext);
+  const [isLoading, setIsLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -27,12 +29,15 @@ export const ModalCreateContact = ({}: ImodalCreateContact) => {
 
   const createContactSubmit = async (data: TcreateContact) => {
     try {
+      setIsLoading(true);
       const response = await api.post<Icontacts>("/contacts", data);
 
       setContacts((oldContacts) => [...oldContacts, response.data]);
       closeModal();
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
   return (
@@ -75,8 +80,8 @@ export const ModalCreateContact = ({}: ImodalCreateContact) => {
           onChange={(event) => handlePhone(event)}
           maxLength={14}
         />
-        <Button type="submit" style="buttonLargeBlack">
-          Criar contanto
+        <Button type="submit" style="buttonLargeBlack" isDisabled={isLoading}>
+          {isLoading ? <CircularProgress color="inherit" /> : "Criar contanto"}
         </Button>
       </Form>
     </div>

@@ -20,6 +20,11 @@
   &:hover {
     background-color: rgb(0, 0, 0, 0.7);
   }
+
+  &:disabled {
+    background-color: rgb(0, 0, 0, 0.2);
+    cursor: wait;
+  }
 }
 
 .buttonIcon {

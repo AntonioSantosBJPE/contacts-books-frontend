@@ -7,10 +7,11 @@ import { AuthContext } from "@/contexts/AuthContext";
 import { Iclient, IloginClient } from "@/contexts/types";
 import { api } from "@/services/api";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { CircularProgress } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Input } from "../../components/Input";
 import { schema, TregisterData } from "./schema";
@@ -19,6 +20,7 @@ import { handlePhone } from "./utils";
 
 export default function RegisterPage() {
   const { udpateClient } = useContext(AuthContext);
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const {
     register,
@@ -32,6 +34,7 @@ export default function RegisterPage() {
 
   const accountRegister = async (data: TregisterData) => {
     try {
+      setIsLoading(true);
       const response = await api.post<Iclient>("/clients", data);
       const responseLogin = await api.post<IloginClient>("/login", data);
       udpateClient(response.data);
@@ -42,6 +45,8 @@ export default function RegisterPage() {
       router.push("/dashboard");
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -110,8 +115,12 @@ export default function RegisterPage() {
                 valueInputConfirmPassword={getValues().confirmPassword}
                 errorConfirmPassword={errors.confirmPassword?.message}
               />
-              <Button type="submit" style="buttonLargeBlack">
-                Registrar
+              <Button
+                type="submit"
+                style="buttonLargeBlack"
+                isDisabled={isLoading}
+              >
+                {isLoading ? <CircularProgress color="inherit" /> : "Registrar"}
               </Button>
             </Form>
             <div>
