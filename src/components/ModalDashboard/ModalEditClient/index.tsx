@@ -53,7 +53,7 @@ export const ModalEditClient = ({}: ImodalEditClient) => {
           height={25}
         />
       </Button>
-      <h2>Editar perfil</h2>
+      <h2 id="transition-modal-title">Editar perfil</h2>
       <Form onSubmit={handleSubmit(editClientSubmit)}>
         <Input
           id="input-name"

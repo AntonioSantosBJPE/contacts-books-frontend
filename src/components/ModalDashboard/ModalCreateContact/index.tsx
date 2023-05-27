@@ -45,7 +45,7 @@ export const ModalCreateContact = ({}: ImodalCreateContact) => {
           height={25}
         />
       </Button>
-      <h2>Criar contato</h2>
+      <h2 id="transition-modal-title">Criar contato</h2>
       <Form onSubmit={handleSubmit(createContactSubmit)}>
         <Input
           id="input-name"

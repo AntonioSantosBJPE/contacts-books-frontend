@@ -37,7 +37,7 @@ export const ModalDeleteContact = ({}: ImodalDeleteContact) => {
           height={25}
         />
       </Button>
-      <h2>Apagar contato</h2>
+      <h2 id="transition-modal-title">Apagar contato</h2>
       <p>Tem certeza que deseja apagar o contato: {contactIsEdit.name} </p>
       <Form onSubmit={deleteContactSubmit}>
         <Button type="submit" style="buttonLargeBlack">

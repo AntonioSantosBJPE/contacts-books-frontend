@@ -1,10 +1,13 @@
 "use client";
+import { Button } from "@/components/Button";
 import { ModalDashboard } from "@/components/ModalDashboard";
 import { TableContacts } from "@/components/TableContacts";
+import { OverlayNotContacts } from "@/components/TableContacts/OverlayNotContacts";
 import { AuthContext } from "@/contexts/AuthContext";
 import { DashboardContext } from "@/contexts/ContactsContext";
 import { Iclient } from "@/contexts/types";
 import { api } from "@/services/api";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useContext, useEffect } from "react";
 import styles from "./styles.module.scss";
@@ -48,20 +51,47 @@ export default function DashboardPage() {
       <main className={styles.containerMain}>
         {client ? (
           <>
-            <h1> Dashboard</h1>
-            <h4>{client.email}</h4>
-            <h4>{client.name}</h4>
-            <button onClick={() => openModal("editClient")}>
-              Editar Perfil
-            </button>
-            <br></br>
-            <button onClick={() => openModal("registerContact")}>
-              Cadastrar contato
-            </button>
+            <div className={styles.containerSections}>
+              <h2>
+                Bem vindo de volta, <span> {client.name}</span>
+              </h2>
+              <h3>{client.email}</h3>
+              <Button
+                type="button"
+                style="buttonIcon"
+                actionClick={() => openModal("editClient")}
+              >
+                <Image
+                  src={"/icon-edit.svg"}
+                  alt="edit contact"
+                  width={25}
+                  height={25}
+                />
+                Editar Perfil
+              </Button>
+            </div>
+
+            <div className={styles.containerSections}>
+              <h2>Lista de contatos</h2>
+              <Button
+                type="button"
+                style="buttonIcon"
+                actionClick={() => openModal("registerContact")}
+              >
+                <Image
+                  src={"/icon-add.svg"}
+                  alt="edit contact"
+                  width={25}
+                  height={25}
+                />
+                Cadastrar contato
+              </Button>
+            </div>
+
             {contacts.length > 0 ? (
               <TableContacts contacts={contacts} />
             ) : (
-              <h2>Nenhum contato cadastrado!</h2>
+              <OverlayNotContacts />
             )}
           </>
         ) : (

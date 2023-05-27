@@ -56,7 +56,7 @@ export const ModalEditContact = ({}: ImodalEditContact) => {
           height={25}
         />
       </Button>
-      <h2>Editar contato</h2>
+      <h2 id="transition-modal-title">Editar contato</h2>
       <Form onSubmit={handleSubmit(editContactSubmit)}>
         <Input
           id="input-name"
