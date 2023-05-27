@@ -8,6 +8,7 @@ import { ModalCreateContact } from "./ModalCreateContact";
 import { ModalDeleteContact } from "./ModalDeleteContact";
 import { ModalEditClient } from "./ModalEditClient";
 import { ModalEditContact } from "./ModalEditContact";
+import { ModalNotAuth } from "./ModalNotAuth";
 import { style } from "./styleMui";
 
 interface ImodalDashboard {}
@@ -34,6 +35,7 @@ export const ModalDashboard = ({}: ImodalDashboard) => {
             {modalType == "editContact" && <ModalEditContact />}
             {modalType == "deleteContact" && <ModalDeleteContact />}
             {modalType == "editClient" && <ModalEditClient />}
+            {modalType == "noAuth" && <ModalNotAuth />}
           </Box>
         </Fade>
       </Modal>

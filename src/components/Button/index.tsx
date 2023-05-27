@@ -23,6 +23,7 @@ export const Button = ({
           className={styles.buttonLargeBlack}
           type={type}
           disabled={isDisabled}
+          onClick={actionClick}
         >
           {children}
         </button>

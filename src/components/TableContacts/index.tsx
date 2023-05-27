@@ -14,7 +14,7 @@ import { Button } from "../Button";
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#41aeb5",
+      main: "#2f7d82",
     },
   },
   typography: {

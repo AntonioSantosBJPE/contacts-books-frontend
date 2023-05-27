@@ -1,20 +1,19 @@
 import { Button } from "@/components/Button";
-import { Form } from "@/components/Form";
 import { AuthContext } from "@/contexts/AuthContext";
 import { DashboardContext } from "@/contexts/ContactsContext";
 import { api } from "@/services/api";
-import { CircularProgress } from "@mui/material";
-import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { FormEvent, useContext, useState } from "react";
 import styles from "./styles.module.scss";
 
-interface ImodalDeleteContact {}
+interface ImodalNotAuth {}
 
-export const ModalDeleteContact = ({}: ImodalDeleteContact) => {
+export const ModalNotAuth = ({}: ImodalNotAuth) => {
   const { contacts, setContacts, closeModal, contactIsEdit } =
     useContext(DashboardContext);
   const { openSnackBar } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   const deleteContactSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -38,25 +37,19 @@ export const ModalDeleteContact = ({}: ImodalDeleteContact) => {
   };
   return (
     <div className={styles.containerModal}>
-      <Button style="buttonIconSmall" type="button" actionClick={closeModal}>
-        <Image
-          src={"/icon-close.svg"}
-          alt="close modal"
-          width={25}
-          height={25}
-        />
+      <h2 id="transition-modal-title">Erro de autenticação</h2>
+      <p>
+        Você não está autenticado ou seu token expirou, faça novamente o login!{" "}
+      </p>
+      <Button
+        style="buttonLargeBlack"
+        type="button"
+        actionClick={() => {
+          router.push("/login");
+        }}
+      >
+        Realizar Login
       </Button>
-      <h2 id="transition-modal-title">Apagar contato</h2>
-      <p>Tem certeza que deseja apagar o contato: {contactIsEdit.name} </p>
-      <Form onSubmit={deleteContactSubmit}>
-        <Button type="submit" style="buttonLargeBlack" isDisabled={isLoading}>
-          {isLoading ? (
-            <CircularProgress color="inherit" />
-          ) : (
-            "Confirmar Deleção"
-          )}
-        </Button>
-      </Form>
     </div>
   );
 };

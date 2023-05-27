@@ -18,7 +18,7 @@ interface ImodalEditClient {}
 
 export const ModalEditClient = ({}: ImodalEditClient) => {
   const { closeModal } = useContext(DashboardContext);
-  const { client, udpateClient } = useContext(AuthContext);
+  const { client, udpateClient, openSnackBar } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
 
   const {
@@ -42,11 +42,21 @@ export const ModalEditClient = ({}: ImodalEditClient) => {
         data
       );
       udpateClient(response.data);
+      openSnackBar("success", "Perfil atualizado!");
       closeModal();
-    } catch (error) {
+    } catch (error: any) {
+      if (error.message === "Network Error") {
+        openSnackBar("error", "Erro no servidor, tente novamente.");
+        closeModal();
+      } else {
+        openSnackBar(
+          "error",
+          "Email já está sendo utilizado por outro usuário"
+        );
+        setIsLoading(false);
+      }
       console.error(error);
     } finally {
-      setIsLoading(false);
     }
   };
   return (
