@@ -1,6 +1,102 @@
+.containerFullPage {
+  width: 100%;
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  background-color: rgb(65, 174, 181, 0.8);
+}
+
 .container {
   margin: 0 auto;
   width: 100%;
   max-width: 102.4rem;
-  // border: 0.1rem solid red;
+}
+
+.containerMain {
+  margin-top: 1rem;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+}
+
+.containerSection {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  box-shadow: 4px 0px 4px 4px rgba(0, 0, 0, 0.24);
+
+  & > div {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+
+    padding: 2rem;
+
+    & > h2 {
+      text-align: center;
+    }
+
+    & > h3 {
+      text-align: center;
+      color: rgb(65, 174, 181);
+    }
+  }
+
+  & > figure {
+    width: 100%;
+    min-height: 30rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+  }
+
+  @media (min-width: 600px) {
+    flex-direction: row;
+    & > div {
+      width: 50%;
+    }
+
+    & > figure {
+      width: 50%;
+    }
+  }
+}
+
+.containerFooter {
+  display: flex;
+  width: 100%;
+  min-height: 8rem;
+  box-shadow: 4px 0px 4px 4px rgba(0, 0, 0, 0.24);
+
+  background-color: white;
+  margin-top: 1rem;
+
+  & > footer {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 102.4rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    padding: 1rem;
+
+    & > h3 {
+      color: rgb(65, 174, 181);
+      text-align: center;
+      font-size: 1.6rem;
+    }
+  }
 }
