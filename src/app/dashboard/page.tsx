@@ -12,10 +12,11 @@ import { Iclient } from "@/contexts/types";
 import { api } from "@/services/api";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 
 export default function DashboardPage() {
+  const [loadingFullPage, setLoadingFullPage] = useState(false);
   const { client, udpateClient, logoutClient, setNotAuth, openSnackBar } =
     useContext(AuthContext);
   const { contacts, requestContacts, openModal } = useContext(DashboardContext);
@@ -36,6 +37,7 @@ export default function DashboardPage() {
             setNotAuth(false);
             await requestContacts(response.data.id);
             udpateClient(response.data);
+            setLoadingFullPage(true);
           } catch (error) {
             console.error(error);
             api.defaults.headers.common.authorization = `Bearer`;
@@ -44,8 +46,11 @@ export default function DashboardPage() {
           }
         })();
       } else {
-        setNotAuth(false);
-        requestContacts(client.id);
+        (async () => {
+          setNotAuth(false);
+          await requestContacts(client.id);
+          setLoadingFullPage(true);
+        })();
       }
     }
 
@@ -56,7 +61,7 @@ export default function DashboardPage() {
     <>
       <ModalDashboard />
       <HeaderDashboard logoutClient={logoutClient} />
-      {client ? (
+      {client && loadingFullPage ? (
         <>
           <div className={styles.container}>
             <main className={styles.containerMain}>
