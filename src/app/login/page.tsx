@@ -1,5 +1,6 @@
 "use client";
 import { AsideInfosLogo } from "@/components/AsideInfosLogo";
+import { AxiosInterceptor } from "@/components/AxiosInterceptor";
 import { Button } from "@/components/Button";
 import { CustomSnackbar } from "@/components/CustomSnackbar";
 import { Form } from "@/components/Form";
@@ -42,18 +43,12 @@ export default function LoginPage() {
       openSnackBar("success", "Login realizado!");
       router.push("/dashboard");
     } catch (error: any) {
-      if (error.message === "Network Error") {
-        openSnackBar("error", "Erro no servidor, tente novamente.");
-      } else {
-        openSnackBar("error", "Email ou sehna inválidos");
-      }
       setIsLoading(false);
-      console.error(error);
     } finally {
     }
   };
   return (
-    <>
+    <AxiosInterceptor>
       <div className={styles.container}>
         <main className={styles.containerMain}>
           <div>
@@ -112,6 +107,6 @@ export default function LoginPage() {
         </main>
       </div>
       <CustomSnackbar />
-    </>
+    </AxiosInterceptor>
   );
 }

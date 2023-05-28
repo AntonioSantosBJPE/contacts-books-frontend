@@ -1,3 +1,4 @@
+import { AxiosInterceptor } from "@/components/AxiosInterceptor";
 import { Button } from "@/components/Button";
 import { Form } from "@/components/Form";
 import { AuthContext } from "@/contexts/AuthContext";
@@ -37,26 +38,32 @@ export const ModalDeleteContact = ({}: ImodalDeleteContact) => {
     }
   };
   return (
-    <div className={styles.containerModal}>
-      <Button style="buttonIconSmall" type="button" actionClick={closeModal}>
-        <Image
-          src={"/icon-close.svg"}
-          alt="close modal"
-          width={25}
-          height={25}
-        />
-      </Button>
-      <h2 id="transition-modal-title">Apagar contato</h2>
-      <p>Tem certeza que deseja apagar o contato: {contactIsEdit.name} </p>
-      <Form onSubmit={deleteContactSubmit}>
-        <Button type="submit" style="buttonLargeBlack" isDisabled={isLoading}>
-          {isLoading ? (
-            <CircularProgress color="inherit" />
-          ) : (
-            "Confirmar Deleção"
-          )}
+    <AxiosInterceptor
+      isModal={true}
+      closeModal={closeModal}
+      setIsLoading={setIsLoading}
+    >
+      <div className={styles.containerModal}>
+        <Button style="buttonIconSmall" type="button" actionClick={closeModal}>
+          <Image
+            src={"/icon-close.svg"}
+            alt="close modal"
+            width={25}
+            height={25}
+          />
         </Button>
-      </Form>
-    </div>
+        <h2 id="transition-modal-title">Apagar contato</h2>
+        <p>Tem certeza que deseja apagar o contato: {contactIsEdit.name} </p>
+        <Form onSubmit={deleteContactSubmit}>
+          <Button type="submit" style="buttonLargeBlack" isDisabled={isLoading}>
+            {isLoading ? (
+              <CircularProgress color="inherit" />
+            ) : (
+              "Confirmar Deleção"
+            )}
+          </Button>
+        </Form>
+      </div>
+    </AxiosInterceptor>
   );
 };

@@ -1,4 +1,5 @@
 import { handlePhone } from "@/app/register/utils";
+import { AxiosInterceptor } from "@/components/AxiosInterceptor";
 import { Button } from "@/components/Button";
 import { Form } from "@/components/Form";
 import { Input } from "@/components/Input";
@@ -38,65 +39,64 @@ export const ModalCreateContact = ({}: ImodalCreateContact) => {
       openSnackBar("success", "Contato criado!");
       closeModal();
     } catch (error: any) {
-      if (error.message === "Network Error") {
-        openSnackBar("error", "Erro no servidor, tente novamente.");
-        closeModal();
-      } else {
-        openSnackBar(
-          "error",
-          "Email já está sendo utilizado por outro contato"
-        );
-        setIsLoading(false);
-      }
-
       console.error(error);
     } finally {
     }
   };
   return (
-    <div className={styles.containerModal}>
-      <Button style="buttonIconSmall" type="button" actionClick={closeModal}>
-        <Image
-          src={"/icon-close.svg"}
-          alt="close modal"
-          width={25}
-          height={25}
-        />
-      </Button>
-      <h2 id="transition-modal-title">Criar contato</h2>
-      <Form onSubmit={handleSubmit(createContactSubmit)}>
-        <Input
-          id="input-name"
-          labelName="Nome"
-          type="text"
-          linkForm={register("name")}
-          error={errors.name?.message}
-          placeholder={"Digite seu nome"}
-        />
-
-        <Input
-          id="input-email"
-          labelName="Email"
-          type="email"
-          linkForm={register("email")}
-          error={errors.email?.message}
-          placeholder={"Digite seu email"}
-        />
-
-        <Input
-          id="input-phone"
-          labelName="Telefone"
-          type="text"
-          linkForm={register("phone")}
-          error={errors.phone?.message}
-          placeholder={"(xx)xxxxx-xxxx"}
-          onChange={(event) => handlePhone(event)}
-          maxLength={14}
-        />
-        <Button type="submit" style="buttonLargeBlack" isDisabled={isLoading}>
-          {isLoading ? <CircularProgress color="inherit" /> : "Criar contanto"}
+    <AxiosInterceptor
+      closeModal={closeModal}
+      isModal={true}
+      setIsLoading={setIsLoading}
+    >
+      <div className={styles.containerModal}>
+        <Button style="buttonIconSmall" type="button" actionClick={closeModal}>
+          <Image
+            src={"/icon-close.svg"}
+            alt="close modal"
+            width={25}
+            height={25}
+          />
         </Button>
-      </Form>
-    </div>
+        <h2 id="transition-modal-title">Criar contato</h2>
+        <Form onSubmit={handleSubmit(createContactSubmit)}>
+          <Input
+            id="input-name"
+            labelName="Nome"
+            type="text"
+            linkForm={register("name")}
+            error={errors.name?.message}
+            placeholder={"Digite seu nome"}
+          />
+
+          <Input
+            id="input-email"
+            labelName="Email"
+            type="email"
+            linkForm={register("email")}
+            error={errors.email?.message}
+            placeholder={"Digite seu email"}
+          />
+
+          <Input
+            id="input-phone"
+            labelName="Telefone"
+            type="text"
+            linkForm={register("phone")}
+            error={errors.phone?.message}
+            placeholder={"(xx)xxxxx-xxxx"}
+            onChange={(event) => handlePhone(event)}
+            maxLength={14}
+          />
+          <Button type="submit" style="buttonLargeBlack" isDisabled={isLoading}>
+            {isLoading ? (
+              <CircularProgress color="inherit" />
+            ) : (
+              "Criar contanto"
+            )}
+          </Button>
+        </Form>
+      </div>
+    </AxiosInterceptor>
   );
 };
