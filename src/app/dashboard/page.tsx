@@ -34,7 +34,7 @@ export default function DashboardPage() {
             api.defaults.headers.common.authorization = `Bearer ${token}`;
             const response = await api.get<Iclient>("/clients/profile");
             setNotAuth(false);
-            requestContacts(response.data.id);
+            await requestContacts(response.data.id);
             udpateClient(response.data);
           } catch (error) {
             console.error(error);
