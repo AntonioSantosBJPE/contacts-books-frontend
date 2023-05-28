@@ -8,7 +8,7 @@ export const CustomSnackbar = ({}) => {
   return (
     <Snackbar
       open={snackBar}
-      autoHideDuration={3000}
+      autoHideDuration={2200}
       onClose={handleCloseSnackBar}
     >
       {snackBarType == "success" ? (

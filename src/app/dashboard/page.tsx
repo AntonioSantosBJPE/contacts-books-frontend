@@ -16,7 +16,7 @@ import { useContext, useEffect } from "react";
 import styles from "./styles.module.scss";
 
 export default function DashboardPage() {
-  const { client, udpateClient, logoutClient, setNotAuth } =
+  const { client, udpateClient, logoutClient, setNotAuth, openSnackBar } =
     useContext(AuthContext);
   const { contacts, requestContacts, openModal } = useContext(DashboardContext);
 
@@ -39,6 +39,7 @@ export default function DashboardPage() {
           } catch (error) {
             console.error(error);
             api.defaults.headers.common.authorization = `Bearer`;
+            localStorage.removeItem("@contacts-book:token");
             openModal("noAuth");
           }
         })();

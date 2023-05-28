@@ -1,5 +1,6 @@
 "use client";
 import { AsideInfosLogo } from "@/components/AsideInfosLogo";
+import { AxiosInterceptor } from "@/components/AxiosInterceptor";
 import { Button } from "@/components/Button";
 import { CustomSnackbar } from "@/components/CustomSnackbar";
 import { Form } from "@/components/Form";
@@ -45,113 +46,114 @@ export default function RegisterPage() {
       openSnackBar("success", "Cadastro realizado!");
       router.push("/dashboard");
     } catch (error: any) {
-      if (error.message === "Network Error") {
-        openSnackBar("error", "Erro no servidor, tente novamente.");
-      } else {
-        openSnackBar("error", "Email já em uso, realize o login ou mude-o!");
-      }
       setIsLoading(false);
     } finally {
     }
   };
 
   return (
-    <div className={styles.container}>
-      <main className={styles.containerMain}>
-        <div>
-          <AsideInfosLogo />
-          <section>
-            <h2> Crie sua conta</h2>
+    <AxiosInterceptor>
+      <div className={styles.container}>
+        <main className={styles.containerMain}>
+          <div>
+            <AsideInfosLogo />
+            <section>
+              <h2> Crie sua conta</h2>
 
-            <Form onSubmit={handleSubmit(accountRegister)}>
-              <Input
-                id="input-name"
-                labelName="Nome"
-                type="text"
-                linkForm={register("name")}
-                error={errors.name?.message}
-                placeholder={"Digite seu nome"}
-                key={"name"}
-              />
+              <Form onSubmit={handleSubmit(accountRegister)}>
+                <Input
+                  id="input-name"
+                  labelName="Nome"
+                  type="text"
+                  linkForm={register("name")}
+                  error={errors.name?.message}
+                  placeholder={"Digite seu nome"}
+                  key={"name"}
+                />
 
-              <Input
-                id="input-email"
-                labelName="Email"
-                type="email"
-                linkForm={register("email")}
-                error={errors.email?.message}
-                placeholder={"Digite seu email"}
-                key={"email"}
-              />
+                <Input
+                  id="input-email"
+                  labelName="Email"
+                  type="email"
+                  linkForm={register("email")}
+                  error={errors.email?.message}
+                  placeholder={"Digite seu email"}
+                  key={"email"}
+                />
 
-              <Input
-                id="input-phone"
-                labelName="Telefone"
-                type="text"
-                linkForm={register("phone")}
-                error={errors.phone?.message}
-                placeholder={"(xx)xxxxx-xxxx"}
-                onChange={(event) => handlePhone(event)}
-                maxLength={14}
-                key={"phone"}
-              />
+                <Input
+                  id="input-phone"
+                  labelName="Telefone"
+                  type="text"
+                  linkForm={register("phone")}
+                  error={errors.phone?.message}
+                  placeholder={"(xx)xxxxx-xxxx"}
+                  onChange={(event) => handlePhone(event)}
+                  maxLength={14}
+                  key={"phone"}
+                />
 
-              <Input
-                id="input-password"
-                labelName="Senha"
-                type="password"
-                linkForm={register("password")}
-                placeholder={"Digite sua senha"}
-                key={"password"}
-              />
+                <Input
+                  id="input-password"
+                  labelName="Senha"
+                  type="password"
+                  linkForm={register("password")}
+                  placeholder={"Digite sua senha"}
+                  key={"password"}
+                />
 
-              <Input
-                id="input-confirm-password"
-                labelName="Confirmação de senha"
-                type="password"
-                linkForm={register("confirmPassword")}
-                placeholder={"Digite sua senha novamente"}
-                key={"confirmPassword"}
-              />
+                <Input
+                  id="input-confirm-password"
+                  labelName="Confirmação de senha"
+                  type="password"
+                  linkForm={register("confirmPassword")}
+                  placeholder={"Digite sua senha novamente"}
+                  key={"confirmPassword"}
+                />
 
-              <AlertValidatePasswordRegister
-                valueInputPassword={getValues().password}
-                errorPassword={errors.password?.message}
-                valueInputConfirmPassword={getValues().confirmPassword}
-                errorConfirmPassword={errors.confirmPassword?.message}
-              />
-              <Button
-                type="submit"
-                style="buttonLargeBlack"
-                isDisabled={isLoading}
-              >
-                {isLoading ? <CircularProgress color="inherit" /> : "Registrar"}
-              </Button>
-            </Form>
-            <div>
+                <AlertValidatePasswordRegister
+                  valueInputPassword={getValues().password}
+                  errorPassword={errors.password?.message}
+                  valueInputConfirmPassword={getValues().confirmPassword}
+                  errorConfirmPassword={errors.confirmPassword?.message}
+                />
+                <Button
+                  type="submit"
+                  style="buttonLargeBlack"
+                  isDisabled={isLoading}
+                >
+                  {isLoading ? (
+                    <CircularProgress color="inherit" />
+                  ) : (
+                    "Registrar"
+                  )}
+                </Button>
+              </Form>
               <div>
-                <p> Já está cadastrado? </p>
-                <Link href={"/login"}>Login</Link>
+                <div>
+                  <p> Já está cadastrado? </p>
+                  <Link href={"/login"}>Login</Link>
+                </div>
+                <div>
+                  <p> ou </p>
+                </div>
+                <div>
+                  <p>Voltar para home? </p>
+                  <Link href={"/"}>
+                    <Image
+                      src={"/iconHome.svg"}
+                      alt="icon home"
+                      width={20}
+                      height={20}
+                    />
+                  </Link>
+                </div>
               </div>
-              <div>
-                <p> ou </p>
-              </div>
-              <div>
-                <p>Voltar para home? </p>
-                <Link href={"/"}>
-                  <Image
-                    src={"/iconHome.svg"}
-                    alt="icon home"
-                    width={20}
-                    height={20}
-                  />
-                </Link>
-              </div>
-            </div>
-          </section>
-        </div>
-      </main>
-      <CustomSnackbar />
-    </div>
+            </section>
+          </div>
+        </main>
+        <CustomSnackbar />
+      </div>
+    </AxiosInterceptor>
   );
 }
