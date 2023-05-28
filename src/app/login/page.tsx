@@ -13,7 +13,7 @@ import { CircularProgress } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { schema, TloginData } from "./schema";
 import styles from "./styles.module.scss";
@@ -22,6 +22,17 @@ export default function LoginPage() {
   const { udpateClient, openSnackBar } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    const token: string | null = localStorage.getItem("@contacts-book:token");
+
+    if (token) {
+      router.push("/dashboard");
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const {
     register,
     handleSubmit,
