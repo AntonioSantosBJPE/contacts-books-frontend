@@ -1,13 +1,12 @@
+@use "../../scss/abstracts/" as *;
 .container {
   min-width: 100vw;
   min-height: 100vh;
-  background-color: rgb(65, 174, 181, 0.9);
+  background-color: $color-primary-200;
 }
 
 .containerMain {
-  margin: 0 auto;
-  width: 100%;
-  max-width: 102.4rem;
+  @include central-container;
   min-height: 100vh;
 
   display: flex;
@@ -22,7 +21,7 @@
     display: flex;
     flex-direction: column;
 
-    background-color: white;
+    background-color: $color-gray-400;
 
     & > section {
       width: 100%;
@@ -44,21 +43,21 @@
 
       a {
         font-weight: 400;
-        font-size: 1.8rem;
-        color: #2f7d82;
+        font-size: $font-text-1;
+        color: $color-primary-100;
 
         transition: 0.5s;
 
         &:hover {
-          color: rgb(65, 174, 181, 0.8);
+          color: $color-primary-300;
           text-decoration: underline;
         }
       }
 
       & > h2 {
         font-weight: 700;
-        font-size: 3rem;
-        color: #2f7d82;
+        font-size: $font-title-1;
+        color: $color-primary-100;
       }
 
       & > div {
@@ -69,7 +68,7 @@
 
         p {
           font-weight: 400;
-          font-size: 1.8rem;
+          font-size: $font-text-1;
         }
         & > div {
           width: 100%;

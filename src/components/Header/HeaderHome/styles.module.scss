@@ -1,9 +1,10 @@
+@use "../../../scss/abstracts/" as *;
 .Header {
   display: flex;
   width: 100%;
   height: 16rem;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.24);
-  background-color: white;
+  background-color: $color-gray-400;
   @media (min-width: 600px) {
     height: 10rem;
   }
@@ -15,9 +16,7 @@
   align-items: center;
   justify-content: space-between;
 
-  margin: 0 auto;
-  width: 100%;
-  max-width: 102.4rem;
+  @include central-container;
   height: 100%;
 
   padding: 1rem;
