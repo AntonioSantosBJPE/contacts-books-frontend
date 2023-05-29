@@ -1,3 +1,4 @@
+@use "../../scss/abstracts/" as *;
 .containerInput {
   width: 100%;
   height: fit-content;
@@ -16,11 +17,11 @@
 
     font-style: normal;
     font-weight: 400;
-    font-size: 1.8rem;
+    font-size: $font-text-1;
     line-height: 4.5rem;
-    color: white;
+    color: $color-gray-400;
 
-    background: #2f7d82;
+    background: $color-primary-100;
     border-radius: 0.5rem;
 
     border: none;
@@ -29,23 +30,23 @@
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.24);
   }
   input::placeholder {
-    color: white;
+    color: $color-gray-400;
   }
 
   label {
-    color: black;
+    color: $color-gray-100;
 
     font-weight: 400;
-    font-size: 1.8rem;
+    font-size: $font-text-1;
     line-height: 1.5rem;
 
     transition: 0.5s;
   }
 
   p {
-    color: red;
+    color: $color-alert;
     font-weight: 400;
-    font-size: 1.4rem;
+    font-size: $font-text-3;
     line-height: 1.5rem;
 
     transition: 0.5s;

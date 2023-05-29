@@ -1,3 +1,4 @@
+@use "../../../scss/abstracts/" as *;
 .Header {
   display: flex;
   width: 100%;
@@ -11,9 +12,7 @@
   align-items: center;
   justify-content: space-between;
 
-  margin: 0 auto;
-  width: 100%;
-  max-width: 102.4rem;
+  @include central-container;
   height: 100%;
 
   padding: 1rem;

@@ -1,7 +1,7 @@
+@use "../../scss/abstracts/" as *;
 .container {
-  margin: 0 auto;
-  width: 100%;
-  max-width: 102.4rem;
+  @include central-container;
+
   min-height: 80vh;
 }
 .containerMain {
@@ -26,10 +26,10 @@
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.24);
 
   & > h2 {
-    font-size: 2.2rem;
+    font-size: $font-title-2;
 
     & > span {
-      color: #2f7d82;
+      color: $color-primary-100;
     }
   }
 

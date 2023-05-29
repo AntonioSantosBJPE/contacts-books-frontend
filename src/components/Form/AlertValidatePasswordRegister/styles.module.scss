@@ -1,3 +1,4 @@
+@use "../../../scss/abstracts/" as *;
 .containerValidates {
   width: 100%;
   margin-bottom: 0.3rem;
@@ -8,14 +9,14 @@
 
 .validPasswordTrue {
   font-weight: 400;
-  font-size: 1.4rem;
+  font-size: $font-text-3;
   line-height: 1.5rem;
-  color: #41aeb5;
+  color: $color-primary-100;
 }
 
 .validPasswordFalse {
   font-weight: 400;
-  font-size: 1.4rem;
+  font-size: $font-text-3;
   line-height: 1.5rem;
-  color: red;
+  color: $color-alert;
 }

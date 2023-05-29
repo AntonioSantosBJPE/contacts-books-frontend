@@ -1,6 +1,6 @@
 import { AuthProvider } from "@/contexts/AuthContext";
 import { Inter } from "next/font/google";
-import "../sass/main.scss";
+import "../scss/main.scss";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {

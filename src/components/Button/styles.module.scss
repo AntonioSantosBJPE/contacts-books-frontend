@@ -1,3 +1,4 @@
+@use "../../scss/abstracts/" as *;
 .buttonLargeBlack {
   display: flex;
   align-items: center;
@@ -12,9 +13,9 @@
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.24);
 
   font-weight: 400;
-  font-size: 2.4rem;
+  font-size: $font-title-2;
 
-  color: white;
+  color: $color-gray-400;
   transition: 0.5s;
 
   &:hover {
@@ -39,9 +40,9 @@
 
   background-color: transparent;
 
-  font-size: 1.8rem;
+  font-size: $font-text-1;
   font-weight: 500;
-  color: #2f7d82;
+  color: $color-primary-100;
 
   border: none;
   padding: 1rem;
@@ -53,7 +54,7 @@
   }
 
   &:hover {
-    background-color: rgb(65, 174, 181, 0.1);
+    background-color: $color-primary-400;
   }
 
   @media (min-width: 425px) {
@@ -76,9 +77,9 @@
 
   background-color: transparent;
 
-  font-size: 1.8rem;
+  font-size: $font-text-1;
   font-weight: 500;
-  color: #2f7d82;
+  color: $color-primary-100;
 
   border: none;
   padding: 0.5rem;
@@ -90,7 +91,7 @@
   }
 
   &:hover {
-    background-color: rgb(65, 174, 181, 0.1);
+    background-color: $color-primary-400;
   }
 
   @media (min-width: 425px) {
