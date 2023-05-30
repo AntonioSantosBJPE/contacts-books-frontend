@@ -1,34 +1,104 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+![Logo Contacts Book](https://i.ibb.co/tZjcyHB/logo.png)
 
-## Getting Started
+---
 
-First, run the development server:
+# Contacts Book
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+Contacts-book é uma aplicação para gerenciar sua agenda de contatos, permitindo que os usuários se cadastrem como clientes, façam login na aplicação, atualizem suas informações de perfil e gerenciem sua lista de contatos. 
+Os usuários autenticados podem criar, atualizar, excluir e listar todos os seus contatos criados. A aplicação está em produção e pode ser acessado no seguinte [link](https://contacts-books-pi.vercel.app/).
+
+---
+
+## Tabela de Conteúdos
+
+- [Visão Geral](#1-visão-geral)
+- [Screenshots](#2-screenshots)
+- [Funcionalidades](#3-funcionalidades)
+- [Início Rápido](#4-início-rápido)
+  - [Instalando Dependências](#41-instalando-dependências)
+  - [Variáveis de Ambiente](#42-variáveis-de-ambiente)
+  - [Rodando Localmente](#43-rodando-localmente)
+
+## 1. Visão Geral
+
+O projeto foi desenvolvido totalmente em typescript, utilizando react, e como framework foi utilizado o next.JS, escolhido com o intuito de melhorar o SEO (Search Engine Optimization), da página home da aplicação.
+Para realizar requisições http foi utilizado o axios, para realizar a estilização da aplicação optou-se pele Sass e o controle de formulários foi feito através do react-hook-form em conjunto com o zod. 
+Por fim o deploy da aplicação foi feita na Vercel.
+
+Segue os links para mais informações sobre as tecnologias utilizadas:
+- [React](https://pt-br.react.dev/)
+- [NextJS](https://nextjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Sass](https://sass-lang.com/)
+- [Axios](https://axios-http.com/)
+- [React-hook-form](https://react-hook-form.com/)
+- [Zod](https://zod.dev/)
+- [Vercel](https://vercel.com/)
+
+---
+
+## 2. Screenshots
+[ Voltar para o topo ](#tabela-de-conteúdos)
+
+![Página Home](https://i.ibb.co/m8ngFX9/home-page-contacts-book.png)
+![Página de login](https://i.ibb.co/Yt8K0qP/login-page-contacts-book.png)
+![Página de registro](https://i.ibb.co/qjwJ2bt/register-page-contacts-book.png)
+![Página dashboard](https://i.ibb.co/wzXYh22/dashboard-page-contacts-book.png)
+![Página dashboard](https://i.ibb.co/2WSwGrp/SEO.png)
+
+---
+
+## 3. Funcionalidades
+[ Voltar para o topo ](#tabela-de-conteúdos)
+
+- Registro: O usuário pode realizar o seu cadastro na plataforma, onde o formulário conta com controles de dados, feitos com a biblioteca zod;
+- Login: O usuário pode realizar o login na plataforma, e assim ter acesso a página dashboard;
+- Atualização de perfil pessoal: O usuário autenticado pode atualizar suas informações de perfil na página dashboard;
+- Criação de contato: O usuário autenticado pode criar novos contatos para sua lista de contatos;
+- Atualizar dados de um contato: O usuário autenticado pode atualizar os dados dos seus contatos;
+- Apagar contato: O usuário autenticado pode apagar seus contatos;
+- Realizar filtros de dados: O usuário autenticado pode realizar filtros na sua lista de contatos; 
+- Exportar dados: O usuário autenticado pode exportar os dados da sua lista em formato csv;
+- Imprimir dados: O usuário autenticado pode imprimir uma imagem da sua lista de contatos ou exportar em formato pdf;
+
+---
+
+## 4. Início rápido
+[ Voltar para o topo ](#tabela-de-conteúdos)
+
+### 4.1. Instalando dependências
+
+Clone o projeto em sua máquina:
+
+```
+  git clone git@github.com:AntonioSantosBJPE/contacts-books-frontend.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Instale as dependências com o comando:
+```
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 4.2. Variáveis de Ambiente
+Em seguida, crie um arquivo **.env.local**, copiando o formato do arquivo **.env.example**:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```
+cp .env.example .env
+```
 
-## Learn More
+Configure a variável de ambiente com a url do seu servidor backend. Caso queira rodar o pojeto todo localmente, faça uso deste [repositório](https://github.com/AntonioSantosBJPE/contacts-book-backend) , caso deseje utilizar um servidor que esteja em produção faça uso deste [link](https://contacts-book-api-6ydl.onrender.com).
 
-To learn more about Next.js, take a look at the following resources:
+### 4.3. Rodando Localmente
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Para rodar a aplicação localmente use o comando:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```
+npm run dev
+```
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Autor
+
+- [@Antonio Santos](https://github.com/AntonioSantosBJPE)
