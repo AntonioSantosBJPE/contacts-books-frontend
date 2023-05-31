@@ -1,6 +1,7 @@
 "use client";
 import { api } from "@/services/api";
 import { useRouter } from "next/navigation";
+import { destroyCookie } from "nookies";
 import { createContext, useState } from "react";
 import {
   IauthContext,
@@ -45,9 +46,10 @@ export const AuthProvider = ({ children }: IauthProviderProps) => {
 
   const logoutClient = () => {
     api.defaults.headers.common.authorization = `Bearer`;
-    localStorage.removeItem("@contacts-book:token");
+    destroyCookie(null, "@contacts-book:token");
     openSnackBar("success", "Logout realizado!");
     router.push("/");
+    setClient(undefined);
   };
 
   return (

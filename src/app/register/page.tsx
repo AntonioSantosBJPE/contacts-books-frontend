@@ -13,6 +13,7 @@ import { CircularProgress } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { setCookie } from "nookies";
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Input } from "../../components/Input";
@@ -42,7 +43,10 @@ export default function RegisterPage() {
       udpateClient(response.data);
       const { accessToken } = responseLogin.data;
       api.defaults.headers.common.authorization = `Bearer ${accessToken}`;
-      localStorage.setItem("@contacts-book:token", accessToken);
+      setCookie(undefined, "@contacts-book:token", accessToken, {
+        maxAge: 60 * 60 * 1,
+      });
+
       openSnackBar("success", "Cadastro realizado!");
       router.push("/dashboard");
     } catch (error: any) {
