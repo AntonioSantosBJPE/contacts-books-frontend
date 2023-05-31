@@ -47,9 +47,16 @@ export default function DashboardPage() {
         })();
       } else {
         (async () => {
-          setNotAuth(false);
-          await requestContacts(client.id);
-          setLoadingFullPage(true);
+          try {
+            setNotAuth(false);
+            await requestContacts(client.id);
+            setLoadingFullPage(true);
+          } catch (error) {
+            console.error(error);
+            api.defaults.headers.common.authorization = `Bearer`;
+            localStorage.removeItem("@contacts-book:token");
+            openModal("noAuth");
+          }
         })();
       }
     }

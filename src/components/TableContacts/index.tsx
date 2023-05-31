@@ -45,7 +45,7 @@ export const TableContacts = ({ contacts }: ItableContactsProps) => {
     {
       field: "phone",
       headerName: "Telefone",
-      width: 120,
+      width: 150,
       disableColumnMenu: true,
       hideSortIcons: true,
     },
