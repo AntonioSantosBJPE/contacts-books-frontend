@@ -13,7 +13,8 @@ import { CircularProgress } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useContext, useEffect, useState } from "react";
+import { setCookie } from "nookies";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { schema, TloginData } from "./schema";
 import styles from "./styles.module.scss";
@@ -22,16 +23,6 @@ export default function LoginPage() {
   const { udpateClient, openSnackBar } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-
-  useEffect(() => {
-    const token: string | null = localStorage.getItem("@contacts-book:token");
-
-    if (token) {
-      router.push("/dashboard");
-    }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const {
     register,
@@ -48,7 +39,10 @@ export default function LoginPage() {
       const responseLogin = await api.post<IloginClient>("/login", data);
       const { accessToken } = responseLogin.data;
       api.defaults.headers.common.authorization = `Bearer ${accessToken}`;
-      localStorage.setItem("@contacts-book:token", accessToken);
+      setCookie(undefined, "@contacts-book:token", accessToken, {
+        maxAge: 60 * 60 * 1,
+      });
+
       const responseProfile = await api.get<Iclient>("/clients/profile");
       udpateClient(responseProfile.data);
       openSnackBar("success", "Login realizado!");

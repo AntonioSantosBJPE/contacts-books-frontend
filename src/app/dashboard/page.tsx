@@ -12,6 +12,7 @@ import { Iclient } from "@/contexts/types";
 import { api } from "@/services/api";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { destroyCookie, parseCookies } from "nookies";
 import { useContext, useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 
@@ -24,41 +25,39 @@ export default function DashboardPage() {
   const router = useRouter();
 
   useEffect(() => {
-    const token: string | null = localStorage.getItem("@contacts-book:token");
+    const { ["@contacts-book:token"]: token } = parseCookies();
 
-    if (!token) {
-      openModal("noAuth");
+    if (!client) {
+      (async () => {
+        try {
+          api.defaults.headers.common.authorization = `Bearer ${token}`;
+          const response = await api.get<Iclient>("/clients/profile");
+          setNotAuth(false);
+          await requestContacts(response.data.id);
+          udpateClient(response.data);
+          setLoadingFullPage(true);
+        } catch (error) {
+          console.error(error);
+          api.defaults.headers.common.authorization = `Bearer`;
+          destroyCookie(null, "@contacts-book:token");
+          router.push("/");
+          //openModal("noAuth");
+        }
+      })();
     } else {
-      if (!client) {
-        (async () => {
-          try {
-            api.defaults.headers.common.authorization = `Bearer ${token}`;
-            const response = await api.get<Iclient>("/clients/profile");
-            setNotAuth(false);
-            await requestContacts(response.data.id);
-            udpateClient(response.data);
-            setLoadingFullPage(true);
-          } catch (error) {
-            console.error(error);
-            api.defaults.headers.common.authorization = `Bearer`;
-            localStorage.removeItem("@contacts-book:token");
-            openModal("noAuth");
-          }
-        })();
-      } else {
-        (async () => {
-          try {
-            setNotAuth(false);
-            await requestContacts(client.id);
-            setLoadingFullPage(true);
-          } catch (error) {
-            console.error(error);
-            api.defaults.headers.common.authorization = `Bearer`;
-            localStorage.removeItem("@contacts-book:token");
-            openModal("noAuth");
-          }
-        })();
-      }
+      (async () => {
+        try {
+          setNotAuth(false);
+          await requestContacts(client.id);
+          setLoadingFullPage(true);
+        } catch (error) {
+          console.error(error);
+          api.defaults.headers.common.authorization = `Bearer`;
+          destroyCookie(null, "@contacts-book:token");
+          router.push("/");
+          //openModal("noAuth");
+        }
+      })();
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -67,9 +66,10 @@ export default function DashboardPage() {
   return (
     <>
       <ModalDashboard />
-      <HeaderDashboard logoutClient={logoutClient} />
+
       {client && loadingFullPage ? (
         <>
+          <HeaderDashboard logoutClient={logoutClient} />
           <div className={styles.container}>
             <main className={styles.containerMain}>
               <div className={styles.containerSections}>
