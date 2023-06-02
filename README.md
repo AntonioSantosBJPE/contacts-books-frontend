@@ -6,6 +6,7 @@
 
 Contacts-book é uma aplicação para gerenciar sua agenda de contatos, permitindo que os usuários se cadastrem como clientes, façam login na aplicação, atualizem suas informações de perfil e gerenciem sua lista de contatos. 
 Os usuários autenticados podem criar, atualizar, excluir e listar todos os seus contatos criados. A aplicação está em produção e pode ser acessado no seguinte [link](https://contacts-books-pi.vercel.app/).
+Caso deseje rodar o projeto localmente acesse também o repositório da API neste [link](https://github.com/AntonioSantosBJPE/contacts-book-backend). 
 
 ---
 
